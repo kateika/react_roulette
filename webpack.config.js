@@ -3,14 +3,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
 module.exports = {
 
     context: path.resolve(__dirname, 'src'),
 
     entry: [
         'react-hot-loader/patch',
-        './index.jsx'
+        './index.js'
     ],
 
     output: {
@@ -19,7 +18,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js']
     },
 
     devServer: {
@@ -29,13 +28,10 @@ module.exports = {
 
     module: {
         rules: [{
-            test: /\.jsx?$/,
+            test: /\.js$/,
             exclude: /node_modules/,
             use: {
-                loader: 'babel-loader',
-                options: {
-                    plugins: ["babel-plugin-transform-react-jsx"]
-                }
+                loader: 'babel-loader'
             }
         },
         {
@@ -54,8 +50,8 @@ module.exports = {
                     options: {
                         modules: true,
                         camelCase: true,
-                        localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                    },
+                        localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                    }
                 }
             })
         }]
@@ -65,9 +61,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
-            title: 'Test',
-            hash: true,
-            template: './index.html'
+            title: 'Movie roulette'
         })
     ],
     devtool: 'eval',
