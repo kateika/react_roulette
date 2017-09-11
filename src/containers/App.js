@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './images/logo.png';
-import * as style from './styles/style.css';
+import logo from '../images/logo.png';
+import * as style from '../styles/style.css';
 
 export default class App extends React.Component {
 
@@ -8,8 +8,8 @@ export default class App extends React.Component {
         return (
             <div>
                 <img src={logo} />
-                <p className={style.mainCaption}>It's ALIIIIVEEE!</p>
-                <Timer />
+                <p className={style.mainCaption}>It's ALIIIIVEEE for <Timer /></p>
+
             </div>
         )
     }
@@ -37,7 +37,7 @@ class Timer extends React.Component {
 
     render() {
         return (
-            <div>Seconds Elapsed: {this.state.secondsElapsed} sec</div>
+            <span>{this.state.secondsElapsed} sec</span>
         );
     }
 }

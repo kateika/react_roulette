@@ -1,7 +1,7 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require ('path');
+const webpack = require ('webpack');
+const HtmlWebpackPlugin = require ('html-webpack-plugin');
+const ExtractTextPlugin = require ('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
 
     entry: [
         'react-hot-loader/patch',
-        './index.js'
+        './reducers/index.js'
     ],
 
     output: {
@@ -38,7 +38,7 @@ module.exports = {
             test: /\.(ttf|eot|svg|woff|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "file-loader",
             options: {
-                name: '[path][name].[ext]?[hash]'
+                name: '[path][name].[ext]'
             }
         },
         {
@@ -50,7 +50,7 @@ module.exports = {
                     options: {
                         modules: true,
                         camelCase: true,
-                        localIdentName: '[path][name]__[local]--[hash:base64:5]'
+                        localIdentName: '[name].css'
                     }
                 }
             })
@@ -65,6 +65,6 @@ module.exports = {
         })
     ],
     devtool: 'eval',
-    
+
     watch: true
 };
