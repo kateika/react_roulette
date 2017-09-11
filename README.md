@@ -4,7 +4,7 @@
 
 2. Build dev
 
-    `webpack`
+    `npm run build`
 
 3. Start react dev server
 
