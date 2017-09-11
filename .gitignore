@@ -2,3 +2,4 @@
 node_modules
 build
 production-build
+npm-debug.log
