@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "webpack-dev-server --open",
+    "build": "./node_modules/.bin/webpack",
     "prod": "webpack -p --config ./webpack.production.config.js"
   },
   "keywords": [
