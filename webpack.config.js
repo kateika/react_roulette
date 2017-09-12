@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+const config = {
 
     context: path.resolve(__dirname, 'src'),
 
@@ -19,11 +19,6 @@ module.exports = {
 
     resolve: {
         extensions: ['.js']
-    },
-
-    devServer: {
-        hot: true,
-        port: 3000
     },
 
     module: {
@@ -58,14 +53,23 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             title: 'Movie roulette'
         })
-    ],
-
-    devtool: 'eval',
-
-    watch: true
+    ]
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+} else {
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.devtool = 'eval';
+  config.devServer = {
+    hot: true,
+    port: 3000
+  };
+  config.watch = true;
+};
+
+module.exports = config;
