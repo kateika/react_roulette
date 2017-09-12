@@ -1,14 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
     context: path.resolve(__dirname, 'src'),
 
-    entry: './index.jsx',
+    entry: './reducers/index.js',
 
     output: {
         filename: 'bundle.js',
@@ -16,12 +15,12 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js']
     },
 
     module: {
         rules: [{
-            test: /\.jsx?$/,
+            test: /\.js$/,
             exclude: /node_modules/,
             use: {
                 loader: 'babel-loader',
@@ -34,7 +33,7 @@ module.exports = {
             test: /\.(ttf|eot|svg|woff|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "file-loader",
             options: {
-                name: '[path][name].[ext]?[hash]'
+                name: '[path][name].[ext]'
             }
         },
         {
@@ -46,8 +45,8 @@ module.exports = {
                     options: {
                         modules: true,
                         camelCase: true,
-                        localIdentName: '[hash:base64:5]',
-                    },
+                        localIdentName: '[name].css'
+                    }
                 }
             })
         }]
@@ -57,11 +56,10 @@ module.exports = {
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             title: 'Test',
-            hash: true,
-            template: './index.html'
+            hash: true
         }),
         new webpack.optimize.UglifyJsPlugin()
     ],
-    devtool: 'eval',
-    
+    devtool: 'eval'
+
 };

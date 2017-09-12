@@ -9,7 +9,6 @@
     ],
 
     "plugins": [
-        "react-hot-loader/babel",
-        "babel-plugin-transform-react-jsx"
+        "react-hot-loader/babel"
     ]
 }
