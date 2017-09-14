@@ -30,7 +30,7 @@ const config = {
             }
         },
         {
-            test: /\.(ttf|eot|svg|woff|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            test: /\.(ttf|eot|svg|woff|png|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: "file-loader",
             options: {
                 name: '[path][name].[ext]'
@@ -44,8 +44,8 @@ const config = {
                     loader: 'css-loader',
                     options: {
                         modules: true,
-                        camelCase: true,
-                        localIdentName: '[name].css'
+                        camelCase: 'only',
+                        localIdentName: '[path][name]__[local]--[hash:base64:5]'
                     }
                 }
             })
