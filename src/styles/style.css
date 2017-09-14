@@ -1,3 +1,15 @@
-.main-caption {
-    color: red;
+.header {
+    background-image: url(../images/marvel-logo.jpg);
+    background-size: cover;
+}
+
+.logo {
+    font-size: 18px;
+    color: mintcream;
+}
+
+.header-content-wrapper {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
 }
