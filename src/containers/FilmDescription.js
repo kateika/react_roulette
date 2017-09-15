@@ -1,6 +1,6 @@
 import React from 'react';
-// import logo from '../images/marvel-logo.png';
-import * as style from '../styles/style.css';
+import * as normalize from '../styles/normalize.css';
+import * as style from '../styles/common.css';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
 
@@ -10,11 +10,11 @@ export class FilmDescription extends React.Component {
     return (
       <div>
         <div className="headerContainer">
-            <header>
-                <h1>netflixroulette</h1>
-                <a href="#">Search button</a>
-                <MovieCardDescription />
-            </header>
+          <header>
+            <h1>netflixroulette</h1>
+            <a href="#">Search button</a>
+            <MovieCardDescription />
+          </header>
         </div>
         <main>
           <MovieList />

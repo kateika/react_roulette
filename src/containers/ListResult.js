@@ -1,27 +1,33 @@
 import React from 'react';
-// import logo from '../images/marvel-logo.png';
-import * as style from '../styles/style.css';
+import * as normalize from '../styles/normalize.css';
+import * as common from '../styles/common.css';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 
-console.log(style);
+
 export class ListResult extends React.Component {
   render() {
     return (
       <div>
-        <header className={style.header}>
-            <div className={style.headerContentWrapper}>
-                <h1>netflixroulette</h1>
-                <Search />
+        <div className={common.pageWrapper}>
+          <header className={common.header}>
+            <div className={common.container}>
+              <div className={common.topHeader}>
+                <h1 className={common.logo}>netflixroulette</h1>
+              </div>
+              <Search />
             </div>
-        </header>
-        <main>
-          <MovieList />
-        </main>
-        <footer style={{backgroundColor: 'gray'}}>
-          <h1>netflixroulette</h1>
+          </header>
+          <main>
+            <MovieList />
+          </main>
+        </div>
+        <footer className={common.footer}>
+          <div className={common.container}>
+            <h1 className={common.logo}>netflixroulette</h1>
+          </div>
         </footer>
       </div>
     )
   }
-}
+};
