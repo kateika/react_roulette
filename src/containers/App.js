@@ -1,4 +1,5 @@
 import React from 'react';
+import * as normalize from '../styles/normalize.css';
 import { ListResult } from './ListResult';
 import { FilmDescription } from './FilmDescription';
 
@@ -7,7 +8,7 @@ export default class App extends React.Component {
     return (
       <div>
         <ListResult />
-        {/*<FilmDescription />*/}
+        {/* <FilmDescription /> */}
       </div>
     )
   }

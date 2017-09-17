@@ -1,5 +1,5 @@
 import React from 'react';
-import * as normalize from '../styles/normalize.css';
+import * as common from '../styles/common.css';
 import * as search from '../styles/search.css';
 
 export class Search extends React.Component {
@@ -7,17 +7,17 @@ export class Search extends React.Component {
     return (
       <div className={search.searchContainer}>
         <h2 className={search.title}>Find your movie</h2>
-        <form method="post" action="./" className={normalize.clearfix}>
+        <form method="post" action="./" className={common.clearfix}>
           <div>
             <input type="search" />
           </div>
           <div className={search.choice}>
             <span>Search by</span>
-            <a href="#" className={search.btn + " " + search.btnActive}>title</a>
-            <a href="#" className={search.btn}>director</a>
+            <a href="#" className={common.btn + " " + common.btnActive}>title</a>
+            <a href="#" className={common.btn}>director</a>
           </div>
           <div className={search.submitContainer}>
-            <input type="submit" value="search" className={search.btn}/>
+            <input type="submit" value="search" className={common.btn}/>
           </div>
         </form>
       </div>

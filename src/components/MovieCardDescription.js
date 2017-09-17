@@ -1,21 +1,21 @@
 import React from 'react';
 
-
 export class MovieCardDescription extends React.Component {
   render() {
     return (
       <article className="movieCardDescription" style={{backgroundColor: 'lightblue'}}>
-        <img src="https://i.ytimg.com/vi/IjN-WsRh0tI/maxresdefault.jpg" width="500"/>
+        <img src={this.props.currentMovie.poster} width="500"/>
         <div>
-          <h4>Clara cartoon</h4>
-          <span>Oscar-winning Movies</span>
+          <h4>{this.props.currentMovie.title}</h4>
+          <span>{this.props.currentMovie.rating} </span>
+          <span>{this.props.currentMovie.category}</span>
           <div>
-            <span>1994</span>
-            <span>154 min</span>
+            <span>{this.props.currentMovie.year} </span>
+            <span>{this.props.currentMovie.duration} min</span>
           </div>
-          <p>This is lorem ipdum description</p>
-          <small>Director: Quentin Tarantino</small>
-          <small>Cast: a lot of actors and a dragon</small>
+          <p>{this.props.currentMovie.description}</p>
+          <small>{this.props.currentMovie.director} </small>
+          <small>{this.props.currentMovie.cast}</small>
         </div>
       </article>
     )

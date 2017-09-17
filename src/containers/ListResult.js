@@ -1,9 +1,22 @@
 import React from 'react';
-import * as normalize from '../styles/normalize.css';
 import * as common from '../styles/common.css';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 
+const movies = [
+  {
+    'title': 'Clara cartoon',
+    'poster': 'https://i.ytimg.com/vi/IjN-WsRh0tI/maxresdefault.jpg',
+    'year': '2017',
+    'genre': 'Animated Movie'
+  },
+  {
+    'title': 'Strange door',
+    'poster': 'http://dreamicus.com/data/door/door-03.jpg',
+    'year': '2007',
+    'genre': 'Horror Movie'
+  }
+];
 
 export class ListResult extends React.Component {
   render() {
@@ -19,7 +32,7 @@ export class ListResult extends React.Component {
             </div>
           </header>
           <main>
-            <MovieList />
+            <MovieList movies={movies}/>
           </main>
         </div>
         <footer className={common.footer}>
