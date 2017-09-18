@@ -7,8 +7,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <ListResult />
-        {/* <FilmDescription /> */}
+        {/* <ListResult /> */}
+        <FilmDescription />
       </div>
     )
   }
