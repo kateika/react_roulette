@@ -1,48 +1,57 @@
-.page-wrapper {
+:global(.page-wrapper) {
   min-height: calc(100vh - 60px);
 }
 
-.header {
+:global(.header) {
   background-image: url(../images/marvel-logo.jpg);
   background-size: cover;
 }
 
-.container {
+:global(.container) {
   max-width: 980px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.top-header {
-  padding: 10px;
+:global(.top-header) {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.logo {
+:global(.logo) {
+  display: inline-block;
   font-size: 18px;
   color: mintcream;
   margin-left: 30px;
 }
 
-.footer {
+:global(.footer) {
   background-color: #00a8e2;
   padding: 20px;
+  margin-top: 30px;
 }
 
 a {
   color: mintcream;
   text-decoration: none;
-  cursor: pointer;  
+  cursor: pointer;
 }
 
-.btn {
-  margin: 10px 0 10px 10px;
+:global(.btn) {
   background-color: #gray;
   padding: 5px 10px;
   border-radius: 3px;
+  text-transform: uppercase;
 }
 
-.btn-active {
+:global(.btn-active) {
   background-color: crimson;
+}
+
+:global(.secondary-btn) {
+  background-color: mintcream;
+  color: crimson;
+  float: right;
 }
 
 input[type=search] {
@@ -68,16 +77,30 @@ input[type=submit] {
   cursor: pointer;
 }
 
-.clearfix:before,
-.clearfix:after {
+:global(.clearfix:before),
+:global(.clearfix:after) {
   content: "";
   display: table;
 }
 
-.clearfix:after {
+:global(.clearfix:after) {
   clear: both;
 }
 
-.clearfix {
+:global(.clearfix) {
   zoom: 1;
+}
+
+:global(.flex) {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

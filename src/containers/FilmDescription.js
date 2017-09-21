@@ -1,20 +1,18 @@
 import React from 'react';
-import * as normalize from '../styles/normalize.css';
-import * as common from '../styles/common.css';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
 
 const movies = [{
   'title': 'How to train a dragon',
-  'poster': 'http://cdn.collider.com/wp-content/uploads/how-to-train-your-dragon-riders-of-berk-logo.jpg',
+  'poster': 'http://static.rogerebert.com/uploads/movie/movie_poster/how-to-train-your-dragon-2010/large_zMAm3WYmvD40FaWFsOmpicQFabz.jpg',
   'year': '2014',
   'genre': 'Cartoon',
   'rating': '4.8'
 },
 {
   'title': 'Lilo and Stitch',
-  'poster': 'https://img06.deviantart.net/1b14/i/2004/312/5/c/lilo_stitch_colour_practice_2_by_dragonix.jpg',
+  'poster': 'https://images-na.ssl-images-amazon.com/images/I/51wi%2BQtyubL._SY450_.jpg',
   'year': '2002',
   'genre': 'Cartoon',
   'rating': '4.3'
@@ -22,7 +20,7 @@ const movies = [{
 
 const movieWithDescr = {
   'title': 'Clara',
-  'poster': 'https://i.ytimg.com/vi/IjN-WsRh0tI/maxresdefault.jpg',
+  'poster': 'https://i.pinimg.com/originals/83/0d/80/830d8038e1a86fe740514f8427c40be9.jpg',
   'year': '2014',
   'genre': 'Cartoon',
   'rating': '4.8',
@@ -37,12 +35,12 @@ export class FilmDescription extends React.Component {
   render() {
     return (
       <div>
-        <div className={common.pageWrapper}>
-          <header className={common.header}>
-            <div className={common.container}>
-              <div className={common.topHeader}>
-                <h1 className={common.logo}>netflixroulette</h1>
-                <a href="#">Search button</a>              
+        <div className="page-wrapper">
+          <header className="header">
+            <div className="container">
+              <div className="top-header clearfix">
+                <h1 className="logo">netflixroulette</h1>
+                <a href="#" className="btn secondary-btn">Search</a>
               </div>
               <MovieCardDescription currentMovie={movieWithDescr} />
             </div>
@@ -51,12 +49,12 @@ export class FilmDescription extends React.Component {
             <MovieList movies={movies}/>
           </main>
         </div>
-        <footer className={common.footer}>
-          <div className={common.container}>
-            <h1 className={common.logo}>netflixroulette</h1>
+        <footer className="footer">
+          <div className="container">
+            <h1 className="logo">netflixroulette</h1>
           </div>
         </footer>
       </div>
     )
   }
-}
+};

@@ -5,6 +5,10 @@
   color: mintcream;
 }
 
+.search-container :global(.btn) {
+  margin: 10px 0 10px 10px;
+}
+
 .title {
   color: mintcream;
 }
