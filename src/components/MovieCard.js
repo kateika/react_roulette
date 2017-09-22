@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as movieCard from '../styles/movie-card.css';
 
 export class MovieCard extends React.Component {
   render() {
     const { poster, title, year, genre } = this.props;
     return (
-      <div className={movieCard.card}>
+      <Link to="/film" className={movieCard.card}>
         <div className={movieCard.content}>
           <img src={poster}/>
           <div className="clearfix">
@@ -14,7 +15,7 @@ export class MovieCard extends React.Component {
           </div>
           <span className={movieCard.genre}>{genre}</span>
         </div>
-      </div>
+      </Link>
     )
   }
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
@@ -39,8 +40,8 @@ export class FilmDescription extends React.Component {
           <header className="header">
             <div className="container">
               <div className="top-header clearfix">
-                <h1 className="logo">netflixroulette</h1>
-                <a href="#" className="btn secondary-btn">Search</a>
+                <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
+                <Link to="/search" className="btn secondary-btn">Search</Link>
               </div>
               <MovieCardDescription currentMovie={movieWithDescr} />
             </div>
@@ -51,7 +52,7 @@ export class FilmDescription extends React.Component {
         </div>
         <footer className="footer">
           <div className="container">
-            <h1 className="logo">netflixroulette</h1>
+            <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
           </div>
         </footer>
       </div>

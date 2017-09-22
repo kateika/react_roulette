@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 
@@ -55,7 +56,7 @@ export class ListResult extends React.Component {
           <header className="header">
             <div className="container">
               <div className="top-header">
-                <h1 className="logo">netflixroulette</h1>
+                <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
               </div>
               <Search />
             </div>
@@ -66,7 +67,7 @@ export class ListResult extends React.Component {
         </div>
         <footer className="footer">
           <div className="container">
-            <h1 className="logo">netflixroulette</h1>
+            <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
           </div>
         </footer>
       </div>
