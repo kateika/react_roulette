@@ -1,0 +1,25 @@
+.results-bar {
+  background-color: gainsboro;
+}
+
+.results-container {
+  padding: 10px;
+  box-sizing: border-box;
+  min-height: 38px;
+}
+
+.sorting {
+  float: right;
+}
+
+.sorting a {
+  color: black;
+}
+
+.sorting .link-active {
+  color: crimson;
+}
+
+.sorting * {
+  margin-left: 10px;
+}

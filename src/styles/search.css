@@ -1,0 +1,25 @@
+.search-container {
+  text-transform: uppercase;
+  background-color: rgba(0,0,0,0.5);
+  padding: 40px;
+  color: mintcream;
+}
+
+.search-container :global(.btn) {
+  margin: 10px 0 10px 10px;
+}
+
+.title {
+  color: mintcream;
+}
+
+.choice {
+  margin-top: 30px;
+  float: left;
+  padding: 5px;
+}
+
+.submit-container {
+  margin-top: 10px;
+  float: right;
+}

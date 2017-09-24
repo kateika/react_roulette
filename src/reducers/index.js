@@ -8,16 +8,16 @@ document.body.appendChild(application);
 
 
 const render = () => {
-    ReactDom.render(
-        <AppContainer>
-            <App />
-        </AppContainer>,
-        application
-    )
+  ReactDom.render(
+    <AppContainer>
+      <App />
+    </AppContainer>,
+    application
+  )
 };
 
 render();
 
 if (module.hot) {
-    module.hot.accept('../containers/App', render);
+  module.hot.accept('../containers/App', render);
 }
