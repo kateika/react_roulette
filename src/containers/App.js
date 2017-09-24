@@ -10,7 +10,7 @@ export default class App extends React.Component {
       <div>
         {/*<ListResult />*/}
         {/*<FilmDescription />*/}
-        <Link to="/search" style={{color: "black", marginRight: "20"}}>ListResult</Link>
+        <Link to="/search" style={{color: "black", marginRight: "20px"}}>ListResult</Link>
         <Link to="/film" style={{color: "black"}}>FilmDescr</Link>
         {this.props.children}
       </div>

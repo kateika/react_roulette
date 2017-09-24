@@ -5,7 +5,6 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResult } from '../containers/ListResult';
 import { FilmDescription } from '../containers/FilmDescription';
-import { StartPage } from '../containers/StartPage';
 
 
 const application = document.createElement('div');
@@ -18,7 +17,7 @@ const render = () => {
       <Router>
         <App>
           <Switch>
-            <Route exact path="/" component={StartPage} />
+            <Route exact path="/" component={ListResult} />
             <Route path="/search" component={ListResult} />
             <Route path="/film" component={FilmDescription} />
           </Switch>

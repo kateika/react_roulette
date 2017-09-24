@@ -1,6 +1,8 @@
 import React from 'react';
 import { MovieCard } from '../components/MovieCard';
 import { MovieListBar } from '../components/MovieListBar';
+import * as startPage from '../styles/start-page.css';
+
 
 export class MovieList extends React.Component {
   render() {
@@ -13,12 +15,12 @@ export class MovieList extends React.Component {
         key={index}
       />
     });
-
+    const noMovies = <div className={startPage.container}>No films found</div>;
     return (
       <div>
         <MovieListBar />
         <div className="flex container">
-          {movies}
+          { movies.length ? movies : noMovies}
         </div>
       </div>
     )
