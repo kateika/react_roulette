@@ -8,10 +8,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        {/*<ListResult />*/}
-        {/*<FilmDescription />*/}
         <Link to="/search" style={{color: "black", marginRight: "20px"}}>ListResult</Link>
-        <Link to="/film" style={{color: "black"}}>FilmDescr</Link>
+        <Link to="/film/Terminator 2" style={{color: "black"}}>FilmDescr</Link>
         {this.props.children}
       </div>
     )

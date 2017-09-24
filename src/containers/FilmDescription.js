@@ -47,6 +47,7 @@ export class FilmDescription extends React.Component {
             </div>
           </header>
           <main>
+            <span style={{fontSize: "26px", color: "pink"}}>{this.props.match.params.filmName}</span>
             <MovieList movies={movies}/>
           </main>
         </div>

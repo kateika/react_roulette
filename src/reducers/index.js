@@ -18,8 +18,9 @@ const render = () => {
         <App>
           <Switch>
             <Route exact path="/" component={ListResult} />
-            <Route path="/search" component={ListResult} />
-            <Route path="/film" component={FilmDescription} />
+            <Route exact path="/search" component={ListResult} />
+            <Route path="/search/:searchQuery" component={ListResult} />
+            <Route path="/film/:filmName" component={FilmDescription} />
           </Switch>
         </App>
       </Router>

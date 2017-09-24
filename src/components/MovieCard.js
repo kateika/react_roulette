@@ -5,6 +5,7 @@ import * as movieCard from '../styles/movie-card.css';
 export class MovieCard extends React.Component {
   render() {
     const { poster, title, year, genre } = this.props;
+
     return (
       <Link to="/film" className={movieCard.card}>
         <div className={movieCard.content}>
