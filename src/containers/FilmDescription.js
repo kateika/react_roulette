@@ -19,20 +19,19 @@ const movies = [{
   'rating': '4.3'
 }];
 
-const movieWithDescr = {
-  'title': 'Clara',
-  'poster': 'https://i.pinimg.com/originals/83/0d/80/830d8038e1a86fe740514f8427c40be9.jpg',
-  'year': '2014',
-  'genre': 'Cartoon',
-  'rating': '4.8',
-  'duration': '120',
-  'description': 'This is description for Clara cartoon',
-  'director': 'Someone',
-  'cast': 'dragon, girl',
-  'category': 'Oscar-winning movie'
-};
-
 export class FilmDescription extends React.Component {
+  constructor(props) {
+    super();
+    this.state = { movie: {} };
+    let urlParams = new URLSearchParams();
+    urlParams.append("title", props.match.params.filmName);
+    fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
+      .then(res => res.json())
+      .then(movie =>
+        this.setState({
+          movie
+        }));
+  }
   render() {
     return (
       <div>
@@ -43,11 +42,10 @@ export class FilmDescription extends React.Component {
                 <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
                 <Link to="/search" className="btn secondary-btn">Search</Link>
               </div>
-              <MovieCardDescription currentMovie={movieWithDescr} />
+              <MovieCardDescription currentMovie={this.state.movie} />
             </div>
           </header>
           <main>
-            <span style={{fontSize: "26px", color: "pink"}}>{this.props.match.params.filmName}</span>
             <MovieList movies={movies}/>
           </main>
         </div>
