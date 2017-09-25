@@ -7,15 +7,15 @@ import { MovieCardDescription } from '../components/MovieCardDescription';
 const movies = [{
   'title': 'How to train a dragon',
   'poster': 'http://static.rogerebert.com/uploads/movie/movie_poster/how-to-train-your-dragon-2010/large_zMAm3WYmvD40FaWFsOmpicQFabz.jpg',
-  'year': '2014',
-  'genre': 'Cartoon',
+  'release_year': '2014',
+  'category': 'Cartoon',
   'rating': '4.8'
 },
 {
   'title': 'Lilo and Stitch',
   'poster': 'https://images-na.ssl-images-amazon.com/images/I/51wi%2BQtyubL._SY450_.jpg',
-  'year': '2002',
-  'genre': 'Cartoon',
+  'release_year': '2002',
+  'category': 'Cartoon',
   'rating': '4.3'
 }];
 
@@ -30,7 +30,8 @@ export class FilmDescription extends React.Component {
       .then(movie =>
         this.setState({
           movie
-        }));
+        })
+      );
   }
   render() {
     return (
