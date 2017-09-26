@@ -15,6 +15,7 @@ const config = {
     output: {
         filename: 'bundle.js',
         path:  path.resolve(__dirname, 'build'),
+        publicPath: '/'
     },
 
     resolve: {
@@ -67,7 +68,8 @@ if (process.env.NODE_ENV === 'production') {
   config.devtool = 'eval';
   config.devServer = {
     hot: true,
-    port: 3000
+    port: 3000,
+    historyApiFallback: true
   };
   config.watch = true;
 };

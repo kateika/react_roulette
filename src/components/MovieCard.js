@@ -1,20 +1,22 @@
 import React from 'react';
-import * as movieCard from '../styles/movie-card.css';
+import { Link } from 'react-router-dom';
+import * as css from '../styles/movie-card.css';
 
 export class MovieCard extends React.Component {
   render() {
-    const { poster, title, year, genre } = this.props;
+    const { poster, title, year, category } = this.props;
+
     return (
-      <div className={movieCard.card}>
-        <div className={movieCard.content}>
+      <Link to={`/film/${title}`} className={css.card}>
+        <div className={css.content}>
           <img src={poster}/>
           <div className="clearfix">
-            <h4 className={movieCard.title}>{title}</h4>
-            <span className={movieCard.year}>{year}</span>
+            <h4 className={css.title}>{title}</h4>
+            <span className={css.year}>{year}</span>
           </div>
-          <span className={movieCard.genre}>{genre}</span>
+          <span className={css.category}>{category}</span>
         </div>
-      </div>
+      </Link>
     )
   }
 };

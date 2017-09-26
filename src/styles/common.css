@@ -1,5 +1,5 @@
 :global(.page-wrapper) {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - 90px);
 }
 
 :global(.header) {
@@ -28,6 +28,7 @@
 :global(.footer) {
   background-color: #00a8e2;
   padding: 20px;
+  box-sizing: border-box;
   margin-top: 30px;
 }
 

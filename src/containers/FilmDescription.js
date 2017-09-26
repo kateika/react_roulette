@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search } from '../components/Search';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
@@ -6,32 +7,32 @@ import { MovieCardDescription } from '../components/MovieCardDescription';
 const movies = [{
   'title': 'How to train a dragon',
   'poster': 'http://static.rogerebert.com/uploads/movie/movie_poster/how-to-train-your-dragon-2010/large_zMAm3WYmvD40FaWFsOmpicQFabz.jpg',
-  'year': '2014',
-  'genre': 'Cartoon',
+  'release_year': '2014',
+  'category': 'Cartoon',
   'rating': '4.8'
 },
 {
   'title': 'Lilo and Stitch',
   'poster': 'https://images-na.ssl-images-amazon.com/images/I/51wi%2BQtyubL._SY450_.jpg',
-  'year': '2002',
-  'genre': 'Cartoon',
+  'release_year': '2002',
+  'category': 'Cartoon',
   'rating': '4.3'
 }];
 
-const movieWithDescr = {
-  'title': 'Clara',
-  'poster': 'https://i.pinimg.com/originals/83/0d/80/830d8038e1a86fe740514f8427c40be9.jpg',
-  'year': '2014',
-  'genre': 'Cartoon',
-  'rating': '4.8',
-  'duration': '120',
-  'description': 'This is description for Clara cartoon',
-  'director': 'Someone',
-  'cast': 'dragon, girl',
-  'category': 'Oscar-winning movie'
-};
-
 export class FilmDescription extends React.Component {
+  constructor(props) {
+    super();
+    this.state = { movie: {} };
+    let urlParams = new URLSearchParams();
+    urlParams.append("title", props.match.params.filmName);
+    fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
+      .then(res => res.json())
+      .then(movie =>
+        this.setState({
+          movie
+        })
+      );
+  }
   render() {
     return (
       <div>
@@ -39,10 +40,10 @@ export class FilmDescription extends React.Component {
           <header className="header">
             <div className="container">
               <div className="top-header clearfix">
-                <h1 className="logo">netflixroulette</h1>
-                <a href="#" className="btn secondary-btn">Search</a>
+                <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
+                <Link to="/search" className="btn secondary-btn">Search</Link>
               </div>
-              <MovieCardDescription currentMovie={movieWithDescr} />
+              <MovieCardDescription currentMovie={this.state.movie} />
             </div>
           </header>
           <main>
@@ -51,7 +52,7 @@ export class FilmDescription extends React.Component {
         </div>
         <footer className="footer">
           <div className="container">
-            <h1 className="logo">netflixroulette</h1>
+            <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
           </div>
         </footer>
       </div>

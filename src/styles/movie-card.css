@@ -2,6 +2,7 @@
   width: calc(100% / 4 - 0.5px);
   box-sizing: border-box;
   margin-top: 20px;
+  color: black;
 }
 
 .card:not(:nth-of-type(4n)) {

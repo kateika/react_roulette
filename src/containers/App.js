@@ -1,15 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/normalize.css';
 import  '../styles/common.css';
-import { ListResult } from './ListResult';
-import { FilmDescription } from './FilmDescription';
+
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
-        <ListResult />
-        {/*<FilmDescription />*/}
+        {this.props.children}
       </div>
     )
   }

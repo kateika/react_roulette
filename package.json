@@ -17,12 +17,14 @@
   "dependencies": {
     "cross-env": "^5.0.5",
     "express": "^4.15.4",
+    "express-history-api-fallback": "^2.2.1",
     "jest": "^21.0.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-hot-loader": "^3.0.0-beta.7",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-form": "^7.0.4",
     "webpack": "^3.5.6"
