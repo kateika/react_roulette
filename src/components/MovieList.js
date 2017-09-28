@@ -19,7 +19,7 @@ export class MovieList extends React.Component {
     return (
       <div>
         <MovieListBar length={movies.length}/>
-        <div className="flex container">
+        <div className="flex container relative">
           { movies.length ? movies : noMovies}
         </div>
       </div>
