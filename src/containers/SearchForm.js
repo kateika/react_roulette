@@ -1,17 +1,21 @@
-import { connect } from 'react-redux'
-import { setSearchBy } from '../reducers/actions'
-import { Search } from '../components/Search'
+import { connect } from 'react-redux';
+import { setSearchBy, SearchBy } from '../reducers/actions';
+import { Search } from '../components/Search';
 
 const mapStateToProps = (state) => {
   return {
-    searchBy: state.searchBy
+    isTitleActive: state.searchBy === SearchBy.SEARCH_BY_TITLE,
+    isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClick: (searchBy) => {
-      dispatch(setSearchBy(searchBy));
+    onTitleClick: () => {
+      dispatch(setSearchBy(SearchBy.SEARCH_BY_TITLE));
+    },
+    onDirectorClick: () => {
+      dispatch(setSearchBy(SearchBy.SEARCH_BY_DIRECTOR));
     }
   }
 }

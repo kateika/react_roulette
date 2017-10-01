@@ -1,30 +1,27 @@
 import React from 'react';
-import { SearchBy } from '../reducers/actions';
 import * as css from '../styles/search.css';
 
 export class Search extends React.Component {
   render() {
-    const searchByTitle = (searchBy) => {
-      if(searchBy === SearchBy.SEARCH_BY_TITLE) {
-        return <button type="button" className="btn btn-active">title</button>
-      } else {
-        return <button
-          type="button"
-          onClick={ () => this.props.onClick(SearchBy.SEARCH_BY_TITLE) }
-          className="btn">title</button>        
-      }
+    let searchByTitle;
+    if(this.props.isTitleActive) {
+      searchByTitle = <button type="button" className="btn btn-active">title</button>
+    } else {
+      searchByTitle = <button
+        type="button"
+        onClick={this.props.onTitleClick}
+        className="btn">title</button>        
     }
 
-    const searchByDirector = (searchBy) => {
-      if(searchBy === SearchBy.SEARCH_BY_DIRECTOR) {
-        return <button type="button" className="btn btn-active">director</button>
-      } else {
-        return <button
-          type="button"
-          onClick={ () => this.props.onClick(SearchBy.SEARCH_BY_DIRECTOR) }
-          className="btn">director</button>        
-      }
+    let searchByDirector;
+    if(this.props.isDirectorActive) {
+      searchByDirector = <button type="button" className="btn btn-active">director</button>
+    } else {
+      searchByDirector = <button type="button" 
+        onClick={this.props.onDirectorClick} 
+        className="btn">director</button>
     }
+    
 
     return (
       <div className={css.searchContainer}>
@@ -35,8 +32,8 @@ export class Search extends React.Component {
           </div>
           <div className={css.choice}>
             <span>Search by</span>
-            {searchByTitle(this.props.searchBy)}
-            {searchByDirector(this.props.searchBy)}
+            {searchByTitle}
+            {searchByDirector}
           </div>
           <div className={css.submitContainer}>
             <input type="submit" value="search" className="btn"/>
