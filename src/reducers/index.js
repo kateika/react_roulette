@@ -8,18 +8,30 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResult } from '../containers/ListResult';
 import { FilmDescription } from '../containers/FilmDescription';
-import todos from './movies';
-import visibilityFilter from './sorting';
+import { SearchBy, SET_SEARCH_BY } from './actions';
+import movies from './movies';
+import sorting from './sorting';
 
-//console.log("1",todos);
-//console.log("2",visibilityFilter);
-const netflixApp = combineReducers({
-  todos,
-  visibilityFilter
-});
 
-let netflixStore = createStore(netflixApp);
-console.log(netflixStore);
+const initialState = {
+  searchBy: SearchBy.SEARCH_BY_DIRECTOR
+};
+
+const app = (state = initialState, action) => {
+  switch(action.type) {
+    case SET_SEARCH_BY:
+      return Object.assign({}, state, {
+        searchBy: action.searchBy
+      })
+    default: 
+      return state
+  }
+}
+
+let netflixStore = createStore(app,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
+);
+// let netflixStore = createStore(netflixApp);
 
 
 const application = document.createElement('div');
@@ -46,8 +58,8 @@ const render = (netflixStore) => {
   )
 };
 
-render({netflixStore});
+render(netflixStore);
 
 if (module.hot) {
-  module.hot.accept('../containers/App', render);
+  module.hot.accept('../containers/App', () => render(netflixStore));
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search } from '../components/Search';
+import { SearchForm } from './SearchForm';
 import { MovieList } from '../components/MovieList';
 
 export class ListResult extends React.Component {
@@ -27,7 +27,7 @@ export class ListResult extends React.Component {
               <div className="top-header">
                 <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
               </div>
-              <Search />
+              <SearchForm />
             </div>
           </header>
           <main>

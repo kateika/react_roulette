@@ -39,10 +39,14 @@ a {
 }
 
 :global(.btn) {
-  background-color: #gray;
+  color: mintcream;
+  background-color: gray;
   padding: 5px 10px;
   border-radius: 3px;
   text-transform: uppercase;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
 }
 
 :global(.btn-active) {
