@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchForm } from './SearchForm';
+import { MovieCard } from '../components/MovieCard';
 import { MovieList } from '../components/MovieList';
+import * as css from '../styles/start-page.css';
+import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
   constructor(props) {
@@ -19,6 +22,30 @@ export class ListResult extends React.Component {
   }
 
   render() {
+    const movies = this.state.movies.map((movie, index) => {
+      return <MovieCard
+        title={movie.show_title}
+        year={movie.release_year}
+        poster={movie.poster}
+        category={movie.category}
+        key={index}
+      />
+    });
+
+    const noMovies = <div className={css.container}>No films found</div>;
+
+    const movieListBar =
+      <div className={cssList.resultsContainer + " container"}>
+        {this.state.movies.length == 1 ? <span>1 result was found</span> : <span>{this.state.movies.length} results was found</span>}
+        <div className={cssList.sorting}>
+          <span>Sort by:</span>
+          <a href="#">release date</a>
+          <a href="#" className={cssList.linkActive}>rating</a>
+        </div>
+      </div>;
+
+    const emptyMovieListBar = <div className={cssList.resultsContainer + " container"}></div>;
+
     return (
       <div>
         <div className="page-wrapper">
@@ -31,7 +58,14 @@ export class ListResult extends React.Component {
             </div>
           </header>
           <main>
-            <MovieList movies={this.state.movies}/>
+            <MovieList>
+              <div className={cssList.resultsBar}>
+                { movies.length ? movieListBar : emptyMovieListBar}
+              </div>
+              <div className="flex container relative">
+                { movies.length ? movies : noMovies}
+              </div>
+            </MovieList>
           </main>
         </div>
         <footer className="footer">

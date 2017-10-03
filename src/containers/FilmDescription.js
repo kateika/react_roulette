@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Search } from '../components/Search';
+import { MovieCard } from '../components/MovieCard';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
+import * as css from '../styles/start-page.css';
+import * as cssList from '../styles/movie-list.css';
 
-const movies = [{
+const moviesEx = [{
   'title': 'How to train a dragon',
   'poster': 'http://static.rogerebert.com/uploads/movie/movie_poster/how-to-train-your-dragon-2010/large_zMAm3WYmvD40FaWFsOmpicQFabz.jpg',
   'release_year': '2014',
@@ -34,6 +37,21 @@ export class FilmDescription extends React.Component {
       );
   }
   render() {
+    const movies = moviesEx.map((movie, index) => {
+      return <MovieCard
+        title={movie.show_title}
+        year={movie.release_year}
+        poster={movie.poster}
+        category={movie.category}
+        key={index}
+      />
+    });
+
+    const movieListBar =
+      <div className={cssList.resultsContainer + " container"}>
+        <div>Fims by {this.state.movie.director} </div>
+      </div>;
+
     return (
       <div>
         <div className="page-wrapper">
@@ -47,7 +65,14 @@ export class FilmDescription extends React.Component {
             </div>
           </header>
           <main>
-            <MovieList movies={movies}/>
+            <MovieList>
+              <div className={cssList.resultsBar}>
+                { movieListBar }
+              </div>
+              <div className="flex container relative">
+                { movies }
+              </div>
+            </MovieList>
           </main>
         </div>
         <footer className="footer">

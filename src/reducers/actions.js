@@ -2,9 +2,9 @@
  * action types
  */
 
-export const SEARCH = 'SEARCH'
-export const SET_SEARCH_BY = 'SET_SEARCH_BY'
-export const SET_SORT_BY = 'SET_SORT_BY'
+export const SEARCH = 'SEARCH';
+export const SET_SEARCH_BY = 'SET_SEARCH_BY';
+export const SET_SORT_BY = 'SET_SORT_BY';
 
 /*
  * other constants
@@ -13,12 +13,12 @@ export const SET_SORT_BY = 'SET_SORT_BY'
 export const SearchBy= {
   SEARCH_BY_TITLE: 'SEARCH_BY_TITLE',
   SEARCH_BY_DIRECTOR: 'SEARCH_BY_DIRECTOR'
-}
+};
 
 export const SortBy = {
   SORT_BY_RELEASE_DATE: 'SORT_BY_RELEASE_DATE',
   SORT_BY_RATING: 'SORT_BY_RATING'
-}
+};
 
 /*
  * action creators
