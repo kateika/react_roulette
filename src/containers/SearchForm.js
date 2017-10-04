@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
     isTitleActive: state.searchBy === SearchBy.SEARCH_BY_TITLE,
     isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -18,11 +18,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setSearchBy(SearchBy.SEARCH_BY_DIRECTOR));
     }
   }
-}
+};
 
 const SearchForm = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search)
+)(Search);
 
 export { SearchForm }

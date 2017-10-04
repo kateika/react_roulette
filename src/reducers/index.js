@@ -8,13 +8,14 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResult } from '../containers/ListResult';
 import { FilmDescription } from '../containers/FilmDescription';
-import { SearchBy, SET_SEARCH_BY } from './actions';
+import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY } from './actions';
 import movies from './movies';
 import sorting from './sorting';
 
 
 const initialState = {
-  searchBy: SearchBy.SEARCH_BY_DIRECTOR
+  searchBy: SearchBy.SEARCH_BY_DIRECTOR,
+  sortBy: SortBy.SORT_BY_RELEASE_DATE
 };
 
 const app = (state = initialState, action) => {
@@ -23,13 +24,17 @@ const app = (state = initialState, action) => {
       return Object.assign({}, state, {
         searchBy: action.searchBy
       })
-    default: 
+    case SET_SORT_BY:
+      return Object.assign({}, state, {
+        sortBy: action.sortBy
+      })
+    default:
       return state
   }
 }
 
 let netflixStore = createStore(app,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 // let netflixStore = createStore(netflixApp);
 

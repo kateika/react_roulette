@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchForm } from './SearchForm';
+import { Sorting } from './Sorting';
 import { MovieCard } from '../components/MovieCard';
 import { MovieList } from '../components/MovieList';
 import * as css from '../styles/start-page.css';
@@ -37,11 +38,7 @@ export class ListResult extends React.Component {
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
         {this.state.movies.length == 1 ? <span>1 result was found</span> : <span>{this.state.movies.length} results was found</span>}
-        <div className={cssList.sorting}>
-          <span>Sort by:</span>
-          <a href="#">release date</a>
-          <a href="#" className={cssList.linkActive}>rating</a>
-        </div>
+        <Sorting />
       </div>;
 
     const emptyMovieListBar = <div className={cssList.resultsContainer + " container"}></div>;

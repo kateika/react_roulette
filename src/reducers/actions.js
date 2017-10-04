@@ -28,10 +28,10 @@ export function search(text, searchBy) {
   return { type: SEARCH, text, searchBy };
 }
 
-export function setSortBy(filter) {
-  return { type: SET_SORT_BY, filter }
+export function setSortBy(sortBy) {
+  return { type: SET_SORT_BY, sortBy };
 }
 
 export function setSearchBy(searchBy) {
-  return { type: SET_SEARCH_BY, searchBy }
+  return { type: SET_SEARCH_BY, searchBy };
 }
