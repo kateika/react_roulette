@@ -4,7 +4,7 @@ body {
 }
 
 :global(.page-wrapper) {
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 85px);
 }
 
 :global(.header) {

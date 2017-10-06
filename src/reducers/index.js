@@ -1,21 +1,24 @@
 import React from 'react';
+import thunkMiddleware from 'redux-thunk';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux'
 import ReactDom from 'react-dom';
 import App from '../containers/App';
-import { ListResult } from '../containers/ListResult';
+import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescription } from '../containers/FilmDescription';
 import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY } from './actions';
+import { REQUEST_MOVIES, RECEIVE_MOVIES, fetchMovies } from './actions';
 import movies from './movies';
 import sorting from './sorting';
 
 
 const initialState = {
   searchBy: SearchBy.SEARCH_BY_DIRECTOR,
-  sortBy: SortBy.SORT_BY_RELEASE_DATE
+  sortBy: SortBy.SORT_BY_RELEASE_DATE,
+  movies: []
 };
 
 const app = (state = initialState, action) => {
@@ -23,20 +26,27 @@ const app = (state = initialState, action) => {
     case SET_SEARCH_BY:
       return Object.assign({}, state, {
         searchBy: action.searchBy
-      })
+      });
     case SET_SORT_BY:
       return Object.assign({}, state, {
         sortBy: action.sortBy
-      })
+      });
+    case RECEIVE_MOVIES:
+      return Object.assign({}, state, {
+        movies: action.movies
+      });
     default:
       return state
   }
-}
+};
 
-let netflixStore = createStore(app,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware)
+
 );
 // let netflixStore = createStore(netflixApp);
+netflixStore
+  .dispatch(fetchMovies('Quentin Tarantino', 'director'))
+  .then(() => console.log("HELLO WORLD", netflixStore.getState()));
 
 
 const application = document.createElement('div');
@@ -50,9 +60,9 @@ const render = (netflixStore) => {
         <Router>
           <App>
             <Switch>
-              <Route exact path="/" component={ListResult} />
-              <Route exact path="/search" component={ListResult} />
-              <Route path="/search/:searchQuery" component={ListResult} />
+              <Route exact path="/" component={ListResultContainer} />
+              <Route exact path="/search" component={ListResultContainer} />
+              <Route path="/search/:searchQuery" component={ListResultContainer} />
               <Route path="/film/:filmName" component={FilmDescription} />
             </Switch>
           </App>

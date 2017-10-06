@@ -8,22 +8,23 @@ import * as css from '../styles/start-page.css';
 import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { movies: [] };
-    let urlParams = new URLSearchParams();
-    urlParams.append("director", props.match.params.searchQuery);
-    fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
-      .then(res => res.json())
-      .then(movies =>
-        this.setState({
-          movies
-        })
-      );
-  }
+/*constructor(props) {
+ super();
+ this.state = { movies: [] };
+ let urlParams = new URLSearchParams();
+ urlParams.append("director", props.match.params.searchQuery);
+ fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
+ .then(res => res.json())
+ .then(movies =>
+ this.setState({
+ movies
+ })
+ );
+ }*/
+
 
   render() {
-    const movies = this.state.movies.map((movie, index) => {
+    const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.show_title}
         year={movie.release_year}
@@ -33,11 +34,12 @@ export class ListResult extends React.Component {
       />
     });
 
-    const noMovies = <div className={css.container}>No films found</div>;
+    console.log("movies", movies);
+    const noMovies = <div className={css.container} onClick={this.props.onBodyClick}>No films found</div>;
 
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
-        {this.state.movies.length == 1 ? <span>1 result was found</span> : <span>{this.state.movies.length} results was found</span>}
+        {this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>}
         <Sorting />
       </div>;
 
