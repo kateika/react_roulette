@@ -46,7 +46,7 @@ let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && windo
 // let netflixStore = createStore(netflixApp);
 netflixStore
   .dispatch(fetchMovies('Quentin Tarantino', 'director'))
-  .then(() => console.log("HELLO WORLD", netflixStore.getState()));
+  .then(() => console.log(netflixStore.getState()));
 
 
 const application = document.createElement('div');

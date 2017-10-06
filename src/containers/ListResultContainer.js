@@ -8,17 +8,17 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onBodyClick: () => {
-      dispatch(fetchMovies("Quentin Tarantino", "director"));
-    }
-  }
-};
+//const mapDispatchToProps = (dispatch) => {
+//  return {
+//    onBodyClick: () => {
+//      dispatch(fetchMovies("Quentin Tarantino", "director"));
+//    }
+//  }
+//};
 
 const ListResultContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  //mapDispatchToProps
 )(ListResult);
 
 export { ListResultContainer }

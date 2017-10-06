@@ -8,20 +8,6 @@ import * as css from '../styles/start-page.css';
 import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
-/*constructor(props) {
- super();
- this.state = { movies: [] };
- let urlParams = new URLSearchParams();
- urlParams.append("director", props.match.params.searchQuery);
- fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
- .then(res => res.json())
- .then(movies =>
- this.setState({
- movies
- })
- );
- }*/
-
 
   render() {
     const movies = this.props.movies.map((movie, index) => {
@@ -34,8 +20,7 @@ export class ListResult extends React.Component {
       />
     });
 
-    console.log("movies", movies);
-    const noMovies = <div className={css.container} onClick={this.props.onBodyClick}>No films found</div>;
+    const noMovies = <div className={css.container}>No films found</div>;
 
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
