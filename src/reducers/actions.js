@@ -1,7 +1,7 @@
 /*
  * action types
  */
-
+export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const REQUEST_MOVIES = 'REQUEST_MOVIES'; //for spinner in the future
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 export const SET_SEARCH_BY = 'SET_SEARCH_BY';
@@ -48,20 +48,34 @@ export function receiveMovies(json) {
   }
 }
 
-export function fetchMovies(text, searchBy) {
-  return function (dispatch) {
-    dispatch(requestMovies(text));
+export function fetchMovies() {
+  return function (dispatch, getState) {
+    let state = getState();
+    dispatch(requestMovies(state.searchText));
 
     let urlParams = new URLSearchParams();
-    urlParams.append(searchBy, text);
 
-    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
+    if(state.searchBy === SearchBy.SEARCH_BY_DIRECTOR) {
+      urlParams.append("director", state.searchText);
+    } else {
+      urlParams.append("title", state.searchText);
+    }
+
+    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       .then(
         res => res.json(),
         err => console.log("An error occured: ", error)
       )
-      .then(movies =>
-        dispatch(receiveMovies(movies))
+      .then(movies => {
+          if (!movies.isArray) {
+            movies = [].concat( movies );
+          }
+          dispatch(receiveMovies(movies));
+        }
       );
   }
+}
+
+export function setSearchInput(searchText) {
+  return { type: SEARCH_INPUT, searchText}
 }

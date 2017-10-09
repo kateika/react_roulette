@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchForm } from './SearchForm';
-import { Sorting } from './Sorting';
-import { MovieCard } from '../components/MovieCard';
-import { MovieList } from '../components/MovieList';
+import { SearchForm } from '../containers/SearchForm';
+import { Sorting } from '../containers/Sorting';
+import { MovieCard } from './MovieCard';
+import { MovieList } from './MovieList';
 import * as css from '../styles/start-page.css';
 import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
 
   render() {
+    {/*console.log(this.props.movies);*/}
     const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.show_title}

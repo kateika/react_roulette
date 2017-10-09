@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setSearchBy, SearchBy } from '../reducers/actions';
+import { setSearchBy, SearchBy, fetchMovies, setSearchInput } from '../reducers/actions';
 import { Search } from '../components/Search';
 
 const mapStateToProps = (state) => {
@@ -16,6 +16,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDirectorClick: () => {
       dispatch(setSearchBy(SearchBy.SEARCH_BY_DIRECTOR));
+    },
+    onSubmitSearch: (e) => {
+      e.preventDefault();
+      dispatch(fetchMovies());
+    },
+    onSearchChange: (e) => {
+      dispatch(setSearchInput(e.target.value));
     }
   }
 };

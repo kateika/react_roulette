@@ -10,25 +10,25 @@ export class Search extends React.Component {
       searchByTitle = <button
         type="button"
         onClick={this.props.onTitleClick}
-        className="btn">title</button>        
+        className="btn">title</button>
     }
 
     let searchByDirector;
     if(this.props.isDirectorActive) {
       searchByDirector = <button type="button" className="btn btn-active">director</button>
     } else {
-      searchByDirector = <button type="button" 
-        onClick={this.props.onDirectorClick} 
+      searchByDirector = <button type="button"
+        onClick={this.props.onDirectorClick}
         className="btn">director</button>
     }
-    
+
 
     return (
       <div className={css.searchContainer}>
         <h2 className={css.title}>Find your movie</h2>
-        <form method="post" action="./" className="clearfix">
+        <form className="clearfix">
           <div>
-            <input type="search" />
+            <input type="search" onChange={this.props.onSearchChange}/>
           </div>
           <div className={css.choice}>
             <span>Search by</span>
@@ -36,7 +36,7 @@ export class Search extends React.Component {
             {searchByDirector}
           </div>
           <div className={css.submitContainer}>
-            <input type="submit" value="search" className="btn"/>
+            <input type="submit" value="search" className="btn" onClick={this.props.onSubmitSearch}/>
           </div>
         </form>
       </div>

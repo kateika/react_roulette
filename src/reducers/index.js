@@ -9,7 +9,7 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescription } from '../containers/FilmDescription';
-import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY } from './actions';
+import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT } from './actions';
 import { REQUEST_MOVIES, RECEIVE_MOVIES, fetchMovies } from './actions';
 import movies from './movies';
 import sorting from './sorting';
@@ -18,7 +18,8 @@ import sorting from './sorting';
 const initialState = {
   searchBy: SearchBy.SEARCH_BY_DIRECTOR,
   sortBy: SortBy.SORT_BY_RELEASE_DATE,
-  movies: []
+  movies: [],
+  searchText: ''
 };
 
 const app = (state = initialState, action) => {
@@ -35,18 +36,17 @@ const app = (state = initialState, action) => {
       return Object.assign({}, state, {
         movies: action.movies
       });
+    case SEARCH_INPUT:
+      return Object.assign({}, state, {
+        searchText: action.searchText
+      });
     default:
       return state
   }
 };
 
-let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware)
-
-);
+let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
 // let netflixStore = createStore(netflixApp);
-netflixStore
-  .dispatch(fetchMovies('Quentin Tarantino', 'director'))
-  .then(() => console.log(netflixStore.getState()));
 
 
 const application = document.createElement('div');

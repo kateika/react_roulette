@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { requestMovies, receiveMovies, fetchMovies } from '../reducers/actions';
-import { ListResult } from './ListResult';
+import { ListResult } from '../components/ListResult';
 
 const mapStateToProps = (state) => {
   return {
@@ -8,17 +8,8 @@ const mapStateToProps = (state) => {
   }
 };
 
-//const mapDispatchToProps = (dispatch) => {
-//  return {
-//    onBodyClick: () => {
-//      dispatch(fetchMovies("Quentin Tarantino", "director"));
-//    }
-//  }
-//};
-
 const ListResultContainer = connect(
-  mapStateToProps,
-  //mapDispatchToProps
+  mapStateToProps
 )(ListResult);
 
 export { ListResultContainer }
