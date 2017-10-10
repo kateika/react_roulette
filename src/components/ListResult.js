@@ -10,7 +10,6 @@ import * as cssList from '../styles/movie-list.css';
 export class ListResult extends React.Component {
 
   render() {
-    {/*console.log(this.props.movies);*/}
     const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.show_title}

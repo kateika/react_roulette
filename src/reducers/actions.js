@@ -63,16 +63,20 @@ export function fetchMovies() {
 
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       .then(
-        res => res.json(),
-        err => console.log("An error occured: ", error)
+        res => {
+          if(!res.ok) {
+            throw Error(res.statusText);
+          }
+          return res.json();
+        }
       )
       .then(movies => {
-          if (!movies.isArray) {
-            movies = [].concat( movies );
-          }
-          dispatch(receiveMovies(movies));
+        if (!movies.isArray)  {
+          movies = [].concat( movies );
         }
-      );
+        dispatch(receiveMovies(movies));
+      })
+      .catch(error => console.log("An error occured: ", error));
   }
 }
 
