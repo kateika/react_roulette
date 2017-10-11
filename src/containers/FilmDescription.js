@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search } from '../components/Search';
 import { MovieCard } from '../components/MovieCard';
 import { MovieList } from '../components/MovieList';
 import { MovieCardDescription } from '../components/MovieCardDescription';
@@ -23,18 +22,8 @@ const moviesEx = [{
 }];
 
 export class FilmDescription extends React.Component {
-  constructor(props) {
-    super();
-    this.state = { movie: {} };
-    let urlParams = new URLSearchParams();
-    urlParams.append("title", props.match.params.filmName);
-    fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString())
-      .then(res => res.json())
-      .then(movie =>
-        this.setState({
-          movie
-        })
-      );
+  componentWillMount() {
+    this.props.loadMovieInfo(this.props.match.params.filmName);
   }
   render() {
     const movies = moviesEx.map((movie, index) => {
@@ -49,7 +38,7 @@ export class FilmDescription extends React.Component {
 
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
-        <div>Fims by {this.state.movie.director} </div>
+        {this.props.movies.director ? <div>Films by {this.props.movies.director}</div> : ""}
       </div>;
 
     return (
@@ -61,7 +50,7 @@ export class FilmDescription extends React.Component {
                 <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
                 <Link to="/search" className="btn secondary-btn">Search</Link>
               </div>
-              <MovieCardDescription currentMovie={this.state.movie} />
+              <MovieCardDescription currentMovie={this.props.movies} />
             </div>
           </header>
           <main>

@@ -8,9 +8,8 @@ import { combineReducers } from 'redux'
 import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
-import { FilmDescription } from '../containers/FilmDescription';
-import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT } from './actions';
-import { REQUEST_MOVIES, RECEIVE_MOVIES, fetchMovies } from './actions';
+import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
+import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOVIES } from './actions';
 import movies from './movies';
 import sorting from './sorting';
 
@@ -63,7 +62,7 @@ const render = (netflixStore) => {
               <Route exact path="/" component={ListResultContainer} />
               <Route exact path="/search" component={ListResultContainer} />
               <Route path="/search/:searchQuery" component={ListResultContainer} />
-              <Route path="/film/:filmName" component={FilmDescription} />
+              <Route path="/film/:filmName" component={FilmDescriptionContainer} />
             </Switch>
           </App>
         </Router>

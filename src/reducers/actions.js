@@ -83,3 +83,29 @@ export function fetchMovies() {
 export function setSearchInput(searchText) {
   return { type: SEARCH_INPUT, searchText}
 }
+
+export function fetchMovieInfo(options) {
+  return function (dispatch, getState) {
+    let state = getState();
+    dispatch(requestMovies(options));
+
+    let urlParams = new URLSearchParams();
+    urlParams.append("title", options);
+    console.log(urlParams.toString().toLowerCase());
+
+    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+      .then(
+        res => {
+          if(!res.ok) {
+            throw Error(res.statusText);
+          }
+          return res.json();
+        }
+      )
+      .then(movies => {
+        //here we get only 1 film so it always will be just object (not array of objects)
+        dispatch(receiveMovies(movies));
+      })
+      .catch(error => console.log("An error occured: ", error));
+  }
+}
