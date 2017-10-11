@@ -4,6 +4,7 @@
 export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const REQUEST_MOVIES = 'REQUEST_MOVIES'; //for spinner in the future
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
+export const RECEIVE_CURRENT_MOVIE = 'RECEIVE_CURRENT_MOVIE';
 export const SET_SEARCH_BY = 'SET_SEARCH_BY';
 export const SET_SORT_BY = 'SET_SORT_BY';
 
@@ -48,6 +49,13 @@ export function receiveMovies(json) {
   }
 }
 
+export function receiveCurrentMovie(json) {
+  return {
+    type: RECEIVE_CURRENT_MOVIE,
+    currentMovie: json
+  }
+}
+
 export function fetchMovies() {
   return function (dispatch, getState) {
     let state = getState();
@@ -84,14 +92,12 @@ export function setSearchInput(searchText) {
   return { type: SEARCH_INPUT, searchText}
 }
 
-export function fetchMovieInfo(options) {
-  return function (dispatch, getState) {
-    let state = getState();
-    dispatch(requestMovies(options));
+export function fetchMovieInfo(name) {
+  return function (dispatch) {
+    dispatch(requestMovies(name));//TODO is it necessary?
 
     let urlParams = new URLSearchParams();
-    urlParams.append("title", options);
-    console.log(urlParams.toString().toLowerCase());
+    urlParams.append("title", name);
 
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       .then(
@@ -102,9 +108,29 @@ export function fetchMovieInfo(options) {
           return res.json();
         }
       )
-      .then(movies => {
-        //here we get only 1 film so it always will be just object (not array of objects)
-        dispatch(receiveMovies(movies));
+      .then(currentMovie => {
+        if (!currentMovie.isArray)  {
+          currentMovie = [].concat( currentMovie );
+        }
+        dispatch(receiveCurrentMovie(currentMovie));
+        let urlParams = new URLSearchParams();
+        urlParams.append("director", currentMovie[0].director);
+        //@TODO if there is no movie director
+        return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+      })
+      .then(
+        res => {
+          if(!res.ok) {
+            throw Error(res.statusText);
+          }
+          return res.json();
+        }
+      )
+      .then(relatedMovies => {
+        if (!relatedMovies.isArray)  {
+          relatedMovies = [].concat( relatedMovies );
+        }
+        dispatch(receiveMovies(relatedMovies));
       })
       .catch(error => console.log("An error occured: ", error));
   }

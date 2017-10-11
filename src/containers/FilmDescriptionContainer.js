@@ -9,8 +9,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadMovieInfo: (options) => {
-      dispatch(fetchMovieInfo(options));
+    loadMovieInfo: (name) => {
+      dispatch(fetchMovieInfo(name));
     }
   }
 };
