@@ -17,11 +17,7 @@ export class FilmDescription extends React.Component {
   }
 
   render() {
-    let movieListBar = '';
-
-    if (this.props.currentMovie.director) {
-      movieListBar = <div className={cssList.resultsContainer + " container"}>Films by {this.props.currentMovie.director}</div>
-    }
+    let movieListBar = `Films by ${this.props.currentMovie.director}`;
 
     return (
       <div>

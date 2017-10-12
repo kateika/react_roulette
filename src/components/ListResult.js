@@ -7,15 +7,7 @@ import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
   render() {
-    let movieListBar = '';
-
-    if (this.props.movies.length != 0) {
-      movieListBar =
-        <div className={cssList.resultsContainer + " container"}>
-          {this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>}
-          <Sorting />
-        </div>;
-    }
+    let movieListBar = this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>;
 
     return (
       <div>
@@ -31,6 +23,7 @@ export class ListResult extends React.Component {
           <main>
             <MovieList movies={this.props.movies}>
               { movieListBar }
+              <Sorting />
             </MovieList>
           </main>
         </div>

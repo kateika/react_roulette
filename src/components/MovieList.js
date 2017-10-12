@@ -20,7 +20,9 @@ export class MovieList extends React.Component {
     return (
       <div>
         <div className={cssList.resultsBar}>
-          {movies.length ? this.props.children : null}
+          <div className={cssList.resultsContainer + " container"}>
+            {movies.length ? this.props.children : null}
+          </div>
         </div>
         <div className="flex container relative">
           { movies.length ? movies : noMovies}
