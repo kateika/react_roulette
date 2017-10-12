@@ -27,7 +27,7 @@ export class FilmDescription extends React.Component {
 
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
-        {this.props.movies.director ? <div>Films by {this.props.movies[0].director}</div> : ""}
+        {this.props.currentMovie.director ? <div>Films by {this.props.currentMovie.director}</div> : ""}
       </div>;
 
     return (
@@ -39,7 +39,7 @@ export class FilmDescription extends React.Component {
                 <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
                 <Link to="/search" className="btn secondary-btn">Search</Link>
               </div>
-              <MovieCardDescription currentMovie={this.props.movies[0]} />
+              <MovieCardDescription currentMovie={this.props.currentMovie} />
             </div>
           </header>
           <main>

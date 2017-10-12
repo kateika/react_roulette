@@ -18,6 +18,7 @@ const initialState = {
   searchBy: SearchBy.SEARCH_BY_DIRECTOR,
   sortBy: SortBy.SORT_BY_RELEASE_DATE,
   movies: [],
+  currentMovie: {},
   searchText: ''
 };
 

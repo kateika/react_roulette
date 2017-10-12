@@ -109,13 +109,10 @@ export function fetchMovieInfo(name) {
         }
       )
       .then(currentMovie => {
-        if (!currentMovie.isArray)  {
-          currentMovie = [].concat( currentMovie );
-        }
         dispatch(receiveCurrentMovie(currentMovie));
         let urlParams = new URLSearchParams();
-        urlParams.append("director", currentMovie[0].director);
-        //@TODO if there is no movie director
+        urlParams.append("director", currentMovie.director);
+        //@TODO add check if there is no movie director
         return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       })
       .then(
