@@ -12,9 +12,13 @@ export class FilmDescription extends React.Component {
     this.props.loadMovieInfo(this.props.match.params.filmName);
   }
 
-  render() {
-    console.log("PROPS", this.props.movies);
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.match.params.filmName != this.props.match.params.filmName) {
+      this.props.loadMovieInfo(nextProps.match.params.filmName);
+    }
+  }
 
+  render() {
     const relatedMovies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.show_title}
