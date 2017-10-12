@@ -72,17 +72,11 @@ export function fetchMovies() {
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       .then(
         res => {
-          if(!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+          return isResponseOk(res);
         }
       )
       .then(movies => {
-        if (!movies.isArray)  {
-          movies = [].concat( movies );
-        }
-        dispatch(receiveMovies(movies));
+        dispatch(receiveMovies(objectToArray(movies)));
       })
       .catch(error => console.log("An error occured: ", error));
   }
@@ -102,10 +96,7 @@ export function fetchMovieInfo(name) {
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       .then(
         res => {
-          if(!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+          return isResponseOk(res);
         }
       )
       .then(currentMovie => {
@@ -117,18 +108,26 @@ export function fetchMovieInfo(name) {
       })
       .then(
         res => {
-          if(!res.ok) {
-            throw Error(res.statusText);
-          }
-          return res.json();
+          return isResponseOk(res);
         }
       )
       .then(relatedMovies => {
-        if (!relatedMovies.isArray)  {
-          relatedMovies = [].concat( relatedMovies );
-        }
-        dispatch(receiveMovies(relatedMovies));
+        dispatch(receiveMovies(objectToArray(relatedMovies)));
       })
-      .catch(error => console.log("An error occured: ", error));
+      .catch(error => console.log("An error occurred: ", error));
   }
+}
+
+function isResponseOk(res) {
+  if(!res.ok) {
+    throw Error(res.statusText);
+  }
+  return res.json();
+}
+
+function objectToArray(movies) {
+  if (!movies.isArray)  {
+    movies = [].concat( movies );
+  }
+  return movies;
 }

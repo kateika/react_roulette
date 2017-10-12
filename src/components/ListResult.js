@@ -2,26 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchForm } from '../containers/SearchForm';
 import { Sorting } from '../containers/Sorting';
-import { MovieCard } from './MovieCard';
 import { MovieList } from './MovieList';
 import * as css from '../styles/start-page.css';
 import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
-
   render() {
-    const movies = this.props.movies.map((movie, index) => {
-      return <MovieCard
-        title={movie.show_title}
-        year={movie.release_year}
-        poster={movie.poster}
-        category={movie.category}
-        key={index}
-      />
-    });
-
-    const noMovies = <div className={css.container}>No films found</div>;
-
     const movieListBar =
       <div className={cssList.resultsContainer + " container"}>
         {this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>}
@@ -42,12 +28,9 @@ export class ListResult extends React.Component {
             </div>
           </header>
           <main>
-            <MovieList>
+            <MovieList movies={this.props.movies}>
               <div className={cssList.resultsBar}>
-                { movies.length ? movieListBar : emptyMovieListBar}
-              </div>
-              <div className="flex container relative">
-                { movies.length ? movies : noMovies}
+                { this.props.movies.length ? movieListBar : emptyMovieListBar}
               </div>
             </MovieList>
           </main>

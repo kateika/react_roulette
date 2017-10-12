@@ -1,10 +1,28 @@
 import React from 'react';
+import { MovieCard } from './MovieCard';
+import * as css from '../styles/start-page.css';
 
 export class MovieList extends React.Component {
   render() {
+    console.log("MOVIELIST",this.props.movies);
+    const movies = this.props.movies.map((movie, index) => {
+      return <MovieCard
+        title={movie.show_title}
+        year={movie.release_year}
+        poster={movie.poster}
+        category={movie.category}
+        key={index}
+      />
+    });
+
+    const noMovies = <div className={css.container}>No films found</div>;
+
     return (
       <div>
         {this.props.children}
+        <div className="flex container relative">
+          { movies.length ? movies : noMovies}
+        </div>
       </div>
     )
   }
