@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { FilmDescription } from './FilmDescription';
+import { FilmDescription } from './../components/FilmDescription';
 import { fetchMovieInfo } from '../reducers/actions';
 
 const mapStateToProps = (state) => {

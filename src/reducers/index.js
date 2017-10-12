@@ -10,8 +10,7 @@ import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
 import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOVIES, RECEIVE_CURRENT_MOVIE, RECEIVE_RELATED_MOVIES } from './actions';
-import movies from './movies';
-import sorting from './sorting';
+
 
 
 const initialState = {

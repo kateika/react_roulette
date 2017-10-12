@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MovieList } from '../components/MovieList';
-import { MovieCardDescription } from '../components/MovieCardDescription';
+import { MovieList } from './MovieList';
+import { MovieCardDescription } from './MovieCardDescription';
 import * as cssList from '../styles/movie-list.css';
 
 
