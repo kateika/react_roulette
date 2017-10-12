@@ -1,10 +1,10 @@
 import React from 'react';
 import { MovieCard } from './MovieCard';
 import * as css from '../styles/start-page.css';
+import * as cssList from '../styles/movie-list.css';
 
 export class MovieList extends React.Component {
   render() {
-    console.log("MOVIELIST",this.props.movies);
     const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.show_title}
@@ -19,7 +19,9 @@ export class MovieList extends React.Component {
 
     return (
       <div>
-        {this.props.children}
+        <div className={cssList.resultsBar}>
+          {movies.length ? this.props.children : null}
+        </div>
         <div className="flex container relative">
           { movies.length ? movies : noMovies}
         </div>

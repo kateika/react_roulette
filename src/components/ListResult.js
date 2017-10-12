@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 import { SearchForm } from '../containers/SearchForm';
 import { Sorting } from '../containers/Sorting';
 import { MovieList } from './MovieList';
-import * as css from '../styles/start-page.css';
 import * as cssList from '../styles/movie-list.css';
 
 export class ListResult extends React.Component {
   render() {
-    const movieListBar =
-      <div className={cssList.resultsContainer + " container"}>
-        {this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>}
-        <Sorting />
-      </div>;
+    let movieListBar = '';
 
-    const emptyMovieListBar = <div className={cssList.resultsContainer + " container"}></div>;
+    if (this.props.movies.length != 0) {
+      movieListBar =
+        <div className={cssList.resultsContainer + " container"}>
+          {this.props.movies.length == 1 ? <span>1 result was found</span> : <span>{this.props.movies.length} results was found</span>}
+          <Sorting />
+        </div>;
+    }
 
     return (
       <div>
@@ -29,9 +30,7 @@ export class ListResult extends React.Component {
           </header>
           <main>
             <MovieList movies={this.props.movies}>
-              <div className={cssList.resultsBar}>
-                { this.props.movies.length ? movieListBar : emptyMovieListBar}
-              </div>
+              { movieListBar }
             </MovieList>
           </main>
         </div>

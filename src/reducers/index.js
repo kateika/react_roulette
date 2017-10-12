@@ -9,7 +9,7 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
-import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOVIES, RECEIVE_CURRENT_MOVIE } from './actions';
+import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOVIES, RECEIVE_CURRENT_MOVIE, RECEIVE_RELATED_MOVIES } from './actions';
 import movies from './movies';
 import sorting from './sorting';
 
@@ -19,6 +19,7 @@ const initialState = {
   sortBy: SortBy.SORT_BY_RELEASE_DATE,
   movies: [],
   currentMovie: {},
+  relatedMovies: [],
   searchText: ''
 };
 
@@ -39,6 +40,10 @@ const app = (state = initialState, action) => {
     case RECEIVE_CURRENT_MOVIE:
       return Object.assign({}, state, {
         currentMovie: action.currentMovie
+      });
+    case RECEIVE_RELATED_MOVIES:
+      return Object.assign({}, state, {
+        relatedMovies: action.relatedMovies
       });
     case SEARCH_INPUT:
       return Object.assign({}, state, {

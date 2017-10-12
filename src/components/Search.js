@@ -28,7 +28,7 @@ export class Search extends React.Component {
         <h2 className={css.title}>Find your movie</h2>
         <form className="clearfix">
           <div>
-            <input type="search" onChange={this.props.onSearchChange}/>
+            <input type="search" value={this.props.searchText} onChange={this.props.onSearchChange}/>
           </div>
           <div className={css.choice}>
             <span>Search by</span>

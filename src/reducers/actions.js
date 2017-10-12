@@ -5,6 +5,7 @@ export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const REQUEST_MOVIES = 'REQUEST_MOVIES'; //for spinner in the future
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 export const RECEIVE_CURRENT_MOVIE = 'RECEIVE_CURRENT_MOVIE';
+export const RECEIVE_RELATED_MOVIES = 'RECEIVE_RELATED_MOVIES';
 export const SET_SEARCH_BY = 'SET_SEARCH_BY';
 export const SET_SORT_BY = 'SET_SORT_BY';
 
@@ -56,6 +57,13 @@ export function receiveCurrentMovie(json) {
   }
 }
 
+export function receiveRelatedMovies(json) {
+  return {
+    type: RECEIVE_RELATED_MOVIES,
+    relatedMovies: json
+  }
+}
+
 export function fetchMovies() {
   return function (dispatch, getState) {
     let state = getState();
@@ -70,15 +78,12 @@ export function fetchMovies() {
     }
 
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
-      .then(
-        res => {
-          return isResponseOk(res);
-        }
-      )
+      .then(res => isResponseOk(res))
+      .then(movies => objectToArray(movies))
       .then(movies => {
-        dispatch(receiveMovies(objectToArray(movies)));
+        dispatch(receiveMovies(movies));
       })
-      .catch(error => console.log("An error occured: ", error));
+      .catch(error => console.log("An error occurred: ", error));
   }
 }
 
@@ -94,25 +99,18 @@ export function fetchMovieInfo(name) {
     urlParams.append("title", name);
 
     return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
-      .then(
-        res => {
-          return isResponseOk(res);
-        }
-      )
+      .then(res => isResponseOk(res))
       .then(currentMovie => {
         dispatch(receiveCurrentMovie(currentMovie));
         let urlParams = new URLSearchParams();
         urlParams.append("director", currentMovie.director);
-        //@TODO add check if there is no movie director
+        //@TODO add check if there is no movie director like with search Attack on titan
         return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
       })
-      .then(
-        res => {
-          return isResponseOk(res);
-        }
-      )
+      .then(res => isResponseOk(res))
+      .then(movies => objectToArray(movies))
       .then(relatedMovies => {
-        dispatch(receiveMovies(objectToArray(relatedMovies)));
+        dispatch(receiveRelatedMovies(relatedMovies));
       })
       .catch(error => console.log("An error occurred: ", error));
   }

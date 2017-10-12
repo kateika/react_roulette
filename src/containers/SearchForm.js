@@ -5,7 +5,8 @@ import { Search } from '../components/Search';
 const mapStateToProps = (state) => {
   return {
     isTitleActive: state.searchBy === SearchBy.SEARCH_BY_TITLE,
-    isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR
+    isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR,
+    searchText: state.searchText
   }
 };
 

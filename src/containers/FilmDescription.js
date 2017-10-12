@@ -11,20 +11,17 @@ export class FilmDescription extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("I am inside");
     if(nextProps.match.params.filmName != this.props.match.params.filmName) {
-      console.log("I am here");
       this.props.loadMovieInfo(nextProps.match.params.filmName);
     }
   }
 
   render() {
-    const movieListBar =
-      <div className={cssList.resultsContainer + " container"}>
-        <div>Films by {this.props.currentMovie.director}</div>
-      </div>;
+    let movieListBar = '';
 
-    const emptyMovieListBar = <div className={cssList.resultsContainer + " container"}></div>;
+    if (this.props.currentMovie.director) {
+      movieListBar = <div className={cssList.resultsContainer + " container"}>Films by {this.props.currentMovie.director}</div>
+    }
 
     return (
       <div>
@@ -39,10 +36,8 @@ export class FilmDescription extends React.Component {
             </div>
           </header>
           <main>
-            <MovieList movies={this.props.movies}>
-              <div className={cssList.resultsBar}>
-                { this.props.currentMovie.length ? movieListBar : emptyMovieListBar}
-              </div>
+            <MovieList movies={this.props.relatedMovies}>
+              { movieListBar }
             </MovieList>
           </main>
         </div>

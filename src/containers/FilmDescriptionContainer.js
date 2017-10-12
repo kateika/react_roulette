@@ -5,7 +5,8 @@ import { fetchMovieInfo } from '../reducers/actions';
 const mapStateToProps = (state) => {
   return {
     movies: state.movies,
-    currentMovie: state.currentMovie
+    currentMovie: state.currentMovie,
+    relatedMovies: state.relatedMovies
   }
 };
 const mapDispatchToProps = (dispatch) => {
