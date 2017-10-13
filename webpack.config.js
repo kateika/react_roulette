@@ -67,6 +67,7 @@ if (process.env.NODE_ENV === 'production') {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
   config.devtool = 'eval';
   config.devServer = {
+    contentBase: path.resolve(__dirname, 'data'),
     hot: true,
     port: 3000,
     historyApiFallback: true

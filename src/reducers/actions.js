@@ -77,7 +77,14 @@ export function fetchMovies() {
       urlParams.append("title", state.searchText);
     }
 
-    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+    //return fetch("http://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+    //  .then(res => isResponseOk(res))
+    //  .then(movies => objectToArray(movies))
+    //  .then(movies => {
+    //    dispatch(receiveMovies(movies));
+    //  })
+    //  .catch(error => console.log("An error occurred: ", error));
+    return fetch("http://localhost:3000/movies.json")
       .then(res => isResponseOk(res))
       .then(movies => objectToArray(movies))
       .then(movies => {
@@ -98,14 +105,27 @@ export function fetchMovieInfo(name) {
     let urlParams = new URLSearchParams();
     urlParams.append("title", name);
 
-    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+    //return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+    //  .then(res => isResponseOk(res))
+    //  .then(currentMovie => {
+    //    dispatch(receiveCurrentMovie(currentMovie));
+    //    let urlParams = new URLSearchParams();
+    //    urlParams.append("director", currentMovie.director);
+    //    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+    //  })
+    //  .then(res => isResponseOk(res))
+    //  .then(movies => objectToArray(movies))
+    //  .then(relatedMovies => {
+    //    dispatch(receiveRelatedMovies(relatedMovies));
+    //  })
+    //  .catch(error => console.log("An error occurred: ", error));
+    return fetch("http://localhost:3000/currentMovie.json")
       .then(res => isResponseOk(res))
       .then(currentMovie => {
         dispatch(receiveCurrentMovie(currentMovie));
         let urlParams = new URLSearchParams();
         urlParams.append("director", currentMovie.director);
-        //@TODO add check if there is no movie director like with search Attack on titan
-        return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
+        return fetch("http://localhost:3000/relatedMovies.json")
       })
       .then(res => isResponseOk(res))
       .then(movies => objectToArray(movies))
