@@ -7,12 +7,12 @@ import * as cssList from '../styles/movie-list.css';
 
 export class FilmDescription extends React.Component {
   componentWillMount() {
-    this.props.loadMovieInfo(this.props.match.params.filmName);
+    this.props.loadMovieInfo(this.props.match.params.filmId);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.match.params.filmName != this.props.match.params.filmName) {
-      this.props.loadMovieInfo(nextProps.match.params.filmName);
+    if(nextProps.match.params.filmId != this.props.match.params.filmId) {
+      this.props.loadMovieInfo(nextProps.match.params.filmId);
     }
   }
 

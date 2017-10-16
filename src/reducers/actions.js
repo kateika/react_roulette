@@ -1,3 +1,4 @@
+let apiKey = localStorage.getItem('apiKey');
 /*
  * action types
  */
@@ -70,7 +71,6 @@ export function fetchMovies() {
     dispatch(requestMovies(state.searchText));
 
     let urlString = "";
-    let apiKey = localStorage.getItem('apiKey')
     let urlParams = new URLSearchParams();
 
     urlParams.append("query", state.searchText);
@@ -81,13 +81,12 @@ export function fetchMovies() {
       urlString = "movie"
     }
 
-    return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}${urlParams.toString().toLowerCase()}`)
-      .then(res => isResponseOk(res))
+    return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}&${urlParams.toString().toLowerCase()}`)
+      .then(isResponseOk)
       .then(movies => {
-        console.log(movies);
         dispatch(receiveMovies(movies.results));
       })
-      .catch(error => console.log("An error occurred: ", error));
+      .catch(error => console.error("An error occurred: ", error));
   }
 }
 
@@ -95,41 +94,33 @@ export function setSearchInput(searchText) {
   return { type: SEARCH_INPUT, searchText}
 }
 
-export function fetchMovieInfo(name) {
+export function fetchMovieInfo(id) {
+  let movie = {};
   return function (dispatch) {
-    dispatch(requestMovies(name));//TODO is it necessary?
-
-    let urlParams = new URLSearchParams();
-    urlParams.append("title", name);
-
-    //return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
-    //  .then(res => isResponseOk(res))
-    //  .then(currentMovie => {
-    //    dispatch(receiveCurrentMovie(currentMovie));
-    //    let urlParams = new URLSearchParams();
-    //    urlParams.append("director", currentMovie.director);
-    //    return fetch("https://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
-    //  })
-    //  .then(res => isResponseOk(res))
-    //  .then(movies => objectToArray(movies))
-    //  .then(relatedMovies => {
-    //    dispatch(receiveRelatedMovies(relatedMovies));
-    //  })
-    //  .catch(error => console.log("An error occurred: ", error));
-    return fetch("http://localhost:3000/currentMovie.json")
-      .then(res => isResponseOk(res))
+    dispatch(requestMovies(id));//TODO is it necessary?
+    return fetch(`http://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
+      .then(isResponseOk)
       .then(currentMovie => {
-        dispatch(receiveCurrentMovie(currentMovie));
-        let urlParams = new URLSearchParams();
-        urlParams.append("director", currentMovie.director);
-        return fetch("http://localhost:3000/relatedMovies.json")
+        movie = currentMovie;
+        return fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`)
       })
-      .then(res => isResponseOk(res))
-      .then(movies => objectToArray(movies))
-      .then(relatedMovies => {
+      .then(isResponseOk)
+      .then(currentMovie => {
+        let director = currentMovie.crew.filter(function(item) {
+          return item.job == "Director";
+        });
+        movie.director = director[0].name;
+        dispatch(receiveCurrentMovie(movie));
+        return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+      })
+      .then(isResponseOk)
+      .then(directorMovies => {
+        let relatedMovies = directorMovies.crew.filter(function(person) {
+          return person.job == "Director";
+        });
         dispatch(receiveRelatedMovies(relatedMovies));
       })
-      .catch(error => console.log("An error occurred: ", error));
+      .catch(error => console.error("An error occurred: ", error));
   }
 }
 
@@ -139,10 +130,3 @@ function isResponseOk(res) {
   }
   return res.json();
 }
-//
-//function objectToArray(movies) {
-//  if (!movies.isArray)  {
-//    movies = [].concat( movies );
-//  }
-//  return movies;
-//}

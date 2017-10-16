@@ -5,7 +5,7 @@ export class Search extends React.Component {
   render() {
     let searchByTitle;
     if(this.props.isTitleActive) {
-      searchByTitle = <button type="button" className="btn btn-active">title</button>
+      searchByTitle = <button type="button" className="btn btn-active">movies</button>
     } else {
       searchByTitle = <button
         type="button"

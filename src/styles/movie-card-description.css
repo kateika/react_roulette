@@ -28,12 +28,12 @@
 .rating {
   display: inline-block;
   vertical-align: middle;
-  padding: 10px;
+  padding: 11px 10px;
   color: lightgreen;
   border: 1px solid lightgreen;
   border-radius: 50%;
   margin-left: 15px;
-  margin-bottom: 7px;
+  margin-bottom: 12px;
 }
 
 .caption {
@@ -42,7 +42,6 @@
 
 .bold-caption {
   font-weight: bold;
-  margin-top: 15px;
 }
 
 .year {
