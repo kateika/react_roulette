@@ -14,7 +14,7 @@ import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOV
 
 
 const initialState = {
-  searchBy: SearchBy.SEARCH_BY_TITLE,
+  searchBy: SearchBy.SEARCH_BY_MOVIES,
   sortBy: SortBy.SORT_BY_RELEASE_DATE,
   movies: [],
   currentMovie: {},

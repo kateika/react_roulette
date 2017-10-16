@@ -3,13 +3,13 @@ import * as css from '../styles/search.css';
 
 export class Search extends React.Component {
   render() {
-    let searchByTitle;
-    if(this.props.isTitleActive) {
-      searchByTitle = <button type="button" className="btn btn-active">movies</button>
+    let searchByMovies;
+    if(this.props.isMoviesActive) {
+      searchByMovies = <button type="button" className="btn btn-active">movies</button>
     } else {
-      searchByTitle = <button
+      searchByMovies = <button
         type="button"
-        onClick={this.props.onTitleClick}
+        onClick={this.props.onMoviesClick}
         className="btn">title</button>
     }
 
@@ -31,7 +31,7 @@ export class Search extends React.Component {
           </div>
           <div className={css.choice}>
             <span>Search by</span>
-            {searchByTitle}
+            {searchByMovies}
             {searchByDirector}
           </div>
           <div className={css.submitContainer}>

@@ -4,7 +4,7 @@ import { Search } from '../components/Search';
 
 const mapStateToProps = (state) => {
   return {
-    isTitleActive: state.searchBy === SearchBy.SEARCH_BY_TITLE,
+    isMoviesActive: state.searchBy === SearchBy.SEARCH_BY_MOVIES,
     isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR,
     searchText: state.searchText
   }
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTitleClick: () => {
-      dispatch(setSearchBy(SearchBy.SEARCH_BY_TITLE));
+    onMoviesClick: () => {
+      dispatch(setSearchBy(SearchBy.SEARCH_BY_MOVIES));
     },
     onDirectorClick: () => {
       dispatch(setSearchBy(SearchBy.SEARCH_BY_DIRECTOR));

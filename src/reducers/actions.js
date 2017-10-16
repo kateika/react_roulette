@@ -15,7 +15,7 @@ export const SET_SORT_BY = 'SET_SORT_BY';
  */
 
 export const SearchBy= {
-  SEARCH_BY_TITLE: 'SEARCH_BY_TITLE',
+  SEARCH_BY_MOVIES: 'SEARCH_BY_MOVIES',
   SEARCH_BY_DIRECTOR: 'SEARCH_BY_DIRECTOR'
 };
 
@@ -75,10 +75,10 @@ export function fetchMovies() {
 
     urlParams.append("query", state.searchText);
 
-    if(state.searchBy === SearchBy.SEARCH_BY_DIRECTOR) {
-      urlString = "person"
-    } else {
+    if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
       urlString = "movie"
+    } else {
+      urlString = "tv"
     }
 
     return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}&${urlParams.toString().toLowerCase()}`)
