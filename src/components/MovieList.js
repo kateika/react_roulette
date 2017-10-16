@@ -5,12 +5,15 @@ import * as cssList from '../styles/movie-list.css';
 
 export class MovieList extends React.Component {
   render() {
+    function extractYear(dateString) {
+      let year = dateString.slice(0,4);
+      return year;
+    }
     const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
-        title={movie.show_title}
-        year={movie.release_year}
-        poster={movie.poster}
-        category={movie.category}
+        title={movie.title}
+        year={extractYear(movie.release_date)}
+        poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
         key={index}
       />
     });

@@ -22,7 +22,6 @@ export class Search extends React.Component {
         className="btn">director</button>
     }
 
-
     return (
       <div className={css.searchContainer}>
         <h2 className={css.title}>Find your movie</h2>

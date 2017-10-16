@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
       return parseInt(b.rating) - parseInt(a.rating);
     }
   });
-  console.log(sortedMovies);
+  //console.log(sortedMovies);
   return {
     movies: sortedMovies
   }

@@ -69,26 +69,23 @@ export function fetchMovies() {
     let state = getState();
     dispatch(requestMovies(state.searchText));
 
+    let urlString = "";
+    let apiKey = localStorage.getItem('apiKey')
     let urlParams = new URLSearchParams();
 
+    urlParams.append("query", state.searchText);
+
     if(state.searchBy === SearchBy.SEARCH_BY_DIRECTOR) {
-      urlParams.append("director", state.searchText);
+      urlString = "person"
     } else {
-      urlParams.append("title", state.searchText);
+      urlString = "movie"
     }
 
-    //return fetch("http://netflixroulette.net/api/api.php?" + urlParams.toString().toLowerCase())
-    //  .then(res => isResponseOk(res))
-    //  .then(movies => objectToArray(movies))
-    //  .then(movies => {
-    //    dispatch(receiveMovies(movies));
-    //  })
-    //  .catch(error => console.log("An error occurred: ", error));
-    return fetch("http://localhost:3000/movies.json")
+    return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}${urlParams.toString().toLowerCase()}`)
       .then(res => isResponseOk(res))
-      .then(movies => objectToArray(movies))
       .then(movies => {
-        dispatch(receiveMovies(movies));
+        console.log(movies);
+        dispatch(receiveMovies(movies.results));
       })
       .catch(error => console.log("An error occurred: ", error));
   }
@@ -142,10 +139,10 @@ function isResponseOk(res) {
   }
   return res.json();
 }
-
-function objectToArray(movies) {
-  if (!movies.isArray)  {
-    movies = [].concat( movies );
-  }
-  return movies;
-}
+//
+//function objectToArray(movies) {
+//  if (!movies.isArray)  {
+//    movies = [].concat( movies );
+//  }
+//  return movies;
+//}
