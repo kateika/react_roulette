@@ -23,17 +23,27 @@
   display: inline-block;
   font-size: 30px;
   max-width: 400px;
+  position: relative;
 }
 
 .rating {
   display: inline-block;
-  vertical-align: middle;
-  padding: 11px 10px;
+  font-size: 16px;
+  position: absolute;
+  top: 12px;
+  right: 9px;
   color: lightgreen;
+}
+
+.rating-circle {
+  position: absolute;
+  top: -3px;
+  right: -55px;
+  display: block;
+  width: 41px;
+  height: 41px;
   border: 1px solid lightgreen;
   border-radius: 50%;
-  margin-left: 15px;
-  margin-bottom: 12px;
 }
 
 .caption {

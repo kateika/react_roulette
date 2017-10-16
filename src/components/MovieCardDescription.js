@@ -4,16 +4,20 @@ import * as css from '../styles/movie-card-description.css';
 export class MovieCardDescription extends React.Component {
   render() {
     const { poster_path, title, vote_average, release_date, runtime, overview, budget } = this.props.currentMovie;
-
+    const rating = <div className={css.ratingCircle}>
+                     <span className={css.rating}>{vote_average}</span>
+                   </div>
     return (
       <article className={css.container + " clearfix"}>
         <img src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster_path}`} className={css.poster}/>
         <div className={css.description}>
-          <h4 className={css.title}>{title}</h4>
-          <span className={css.rating}>{vote_average}</span>
+          <h4 className={css.title}>{title}
+            { vote_average ? rating : null }
+          </h4>
+
           <div className={css.boldCaption}>
-            <span className={css.year}>{release_date}</span>
-            <span>{runtime} min</span>
+            { release_date ? <span className={css.year}>{release_date}</span> : null }
+            { runtime ? <span>{runtime} min</span> : null }
           </div>
           <p>{overview}</p>
           { budget ? <span className={css.caption}>Budget is {budget}$</span> : null }
