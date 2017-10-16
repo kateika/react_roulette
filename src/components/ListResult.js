@@ -32,6 +32,7 @@ export class ListResult extends React.Component {
         <footer className="footer">
           <div className="container">
             <h1 className="logo"><Link to="/">netflixroulette</Link></h1>
+            <span className="api-logo">This product uses the TMDb API but is not endorsed or certified by TMDb.</span>
           </div>
         </footer>
       </div>

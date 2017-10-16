@@ -28,6 +28,27 @@ body {
   font-size: 14px;
   color: mintcream;
   margin-left: 30px;
+  clear: both;
+}
+
+:global(.api-logo) {
+  position: relative;
+  float: right;
+  text-align: right;
+  padding-right: 110px;
+  width: 70%;
+}
+
+:global(.api-logo:before) {
+  content: "";
+  background-image: url(https://www.themoviedb.org/assets/static_cache/bb45549239e25f1770d5f76727bcd7c0/images/v4/logos/408x161-powered-by-rectangle-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 100px;
+  position: absolute;
+  top: -10px;
+  right: 0;
 }
 
 :global(.footer) {
