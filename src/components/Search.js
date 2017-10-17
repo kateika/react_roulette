@@ -10,16 +10,16 @@ export class Search extends React.Component {
       searchByMovies = <button
         type="button"
         onClick={this.props.onMoviesClick}
-        className="btn">title</button>
+        className="btn">movies</button>
     }
 
     let searchByDirector;
     if(this.props.isDirectorActive) {
-      searchByDirector = <button type="button" className="btn btn-active">director</button>
+      searchByDirector = <button type="button" className="btn btn-active">tv shows</button>
     } else {
       searchByDirector = <button type="button"
         onClick={this.props.onDirectorClick}
-        className="btn">director</button>
+        className="btn">tv shows</button>
     }
 
     return (

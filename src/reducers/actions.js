@@ -68,7 +68,7 @@ export function receiveRelatedMovies(json) {
 export function fetchMovies() {
   return function (dispatch, getState) {
     let state = getState();
-    dispatch(requestMovies(state.searchText));
+    dispatch(requestMovies(state.searchText));//TODO is it necessary?
 
     let urlString = "";
     let urlParams = new URLSearchParams();
@@ -84,7 +84,29 @@ export function fetchMovies() {
     return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}&${urlParams.toString().toLowerCase()}`)
       .then(isResponseOk)
       .then(movies => {
-        dispatch(receiveMovies(movies.results));
+        let fetchedMovies = [];
+        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+          fetchedMovies = movies.results.map(function(movie) {
+            let fetchedMovie = {
+              poster: movie.poster_path,
+              title: movie.title,
+              release_date: movie.release_date,
+              id: movie.id
+            };
+            return fetchedMovie;
+          })
+        } else {
+          fetchedMovies = movies.results.map(function(movie) {
+            let fetchedMovie = {
+              poster: movie.poster_path,
+              title: movie.name,
+              release_date: movie.first_air_date,
+              id: movie.id
+            };
+            return fetchedMovie;
+          })
+        }
+        dispatch(receiveMovies(fetchedMovies));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -95,30 +117,97 @@ export function setSearchInput(searchText) {
 }
 
 export function fetchMovieInfo(id) {
-  let movie = {};
-  return function (dispatch) {
+  let currentMovie = {};
+  return function (dispatch, getState) {
+    let state = getState();
     dispatch(requestMovies(id));//TODO is it necessary?
-    return fetch(`http://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
+
+    /*TODO move similar code as for fetchMovies to common place?*/
+    let urlString = "";
+    if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+      urlString = "movie"
+    } else {
+      urlString = "tv"
+    }
+
+    return fetch(`http://api.themoviedb.org/3/${urlString}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
-      .then(currentMovie => {
-        movie = currentMovie;
-        return fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`)
+      .then(movie => {
+        let fetchedMovie = {};
+        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+          fetchedMovie = {
+            poster: movie.poster_path,
+            title: movie.title,
+            release_date: movie.release_date,
+            vote_average: movie.vote_average,
+            runtime: movie.runtime,
+            overview: movie.overview,
+            budget: movie.budget,
+            seasons: movie.number_of_seasons, //don't need this
+            last_air_date: movie.last_air_date, //don't need this
+            id: movie.id
+          };
+        } else {
+          fetchedMovie = {
+            poster: movie.poster_path,
+            title: movie.name,
+            release_date: movie.first_air_date,
+            vote_average: movie.vote_average,
+            runtime: movie.episode_runtime,
+            overview: movie.overview,
+            budget: movie.budget, //don't need this
+            seasons: movie.number_of_seasons,
+            last_air_date: movie.last_air_date,
+            id: movie.id
+          };
+        }
+
+        currentMovie = fetchedMovie;
+        return fetch(`https://api.themoviedb.org/3/${urlString}/${id}/credits?api_key=${apiKey}`)
       })
       .then(isResponseOk)
-      .then(currentMovie => {
-        let director = currentMovie.crew.filter(function(item) {
-          return item.job == "Director";
-        });
-        movie.director = director[0].name;
-        dispatch(receiveCurrentMovie(movie));
-        return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+      .then(movie => {
+        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+          let director = movie.crew.filter(function(person) {
+            return person.job == "Director";
+          });
+          currentMovie.director = director[0].name;
+          dispatch(receiveCurrentMovie(currentMovie));
+          return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+        } else {
+          dispatch(receiveCurrentMovie(currentMovie));
+          return fetch(`https://api.themoviedb.org/3/tv/${currentMovie.id}/recommendations?api_key=${apiKey}`)
+        }
       })
       .then(isResponseOk)
-      .then(directorMovies => {
-        let relatedMovies = directorMovies.crew.filter(function(person) {
-          return person.job == "Director";
-        });
-        dispatch(receiveRelatedMovies(relatedMovies));
+      .then(relatedMovies => {
+        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+          let directorMovies = relatedMovies.crew.filter(function (person) {
+            return person.job == "Director";
+          });
+          let moviesforShow = directorMovies.map(function(movie) {
+            let movieforShow = {
+              poster: movie.poster_path,
+              title: movie.title,
+              release_date: movie.release_date,
+              director: movie.director,
+              id: movie.id
+            };
+            return movieforShow;
+          });
+          dispatch(receiveRelatedMovies(moviesforShow));
+        } else {
+          let moviesforShow = relatedMovies.results.map(function(movie) {
+            let movieforShow = {
+              poster: movie.poster_path,
+              title: movie.name,
+              release_date: movie.first_air_date,
+              id: movie.id
+            };
+            return movieforShow;
+          });
+          dispatch(receiveRelatedMovies(moviesforShow));
+        }
       })
       .catch(error => console.error("An error occurred: ", error));
   }

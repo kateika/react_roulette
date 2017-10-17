@@ -15,8 +15,8 @@ export class MovieList extends React.Component {
     const movies = this.props.movies.map((movie, index) => {
       return <MovieCard
         title={movie.title}
-        year={extractYear(movie.release_date)}
-        poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster_path}`}
+        release_date={extractYear(movie.release_date)}
+        poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster}`}
         id={movie.id}
         key={index}
       />

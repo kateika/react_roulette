@@ -29,9 +29,11 @@
 .rating {
   display: inline-block;
   font-size: 16px;
+  text-align: center;
+  width: 25px;
   position: absolute;
-  top: 12px;
-  right: 9px;
+  top: 13px;
+  right: 8px;
   color: lightgreen;
 }
 
@@ -40,8 +42,8 @@
   top: -3px;
   right: -55px;
   display: block;
-  width: 41px;
-  height: 41px;
+  width: 42px;
+  height: 42px;
   border: 1px solid lightgreen;
   border-radius: 50%;
 }
@@ -56,9 +58,4 @@
 
 .year {
   margin-right: 10px;
-}
-
-small {
-  display: block;
-  margin-bottom: 10px;
 }
