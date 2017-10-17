@@ -86,7 +86,6 @@ export function fetchMovies() {
       .then(fetchedMovies => {
         let converter = state.searchBy === SearchBy.SEARCH_BY_MOVIES ? convertToMovie : convertToTVShow;
         let movies = fetchedMovies.results.map(function(movie) {
-          movie.type = urlString;
           return converter(movie);
         });
         dispatch(receiveMovies(movies));
@@ -109,7 +108,7 @@ export function fetchMovieInfo(id,type) {
     return fetch(`http://api.themoviedb.org/3/${urlString}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
       .then(fetchedMovie => {
-        let converter = urlString === "movie" ? convertToMovieWithInfo : convertToTVShowWithInfo;
+        let converter = type === "movie" ? convertToMovie : convertToTVShow;
         currentMovie = converter(fetchedMovie);
         return fetch(`https://api.themoviedb.org/3/${urlString}/${id}/credits?api_key=${apiKey}`)
       })
@@ -119,9 +118,14 @@ export function fetchMovieInfo(id,type) {
           let director = movie.crew.filter(function(person) {
             return person.job == "Director";
           });
-          currentMovie.director = director[0].name;
-          dispatch(receiveCurrentMovie(currentMovie));
-          return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+          if(director.length > 0) {
+            currentMovie.director = director[0].name;
+            dispatch(receiveCurrentMovie(currentMovie));
+            return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+          } else {
+            dispatch(receiveCurrentMovie(currentMovie));
+            return fetch(`https://api.themoviedb.org/3/movie/${currentMovie.id}/recommendations?api_key=${apiKey}`)
+          }
         } else {
           dispatch(receiveCurrentMovie(currentMovie));
           return fetch(`https://api.themoviedb.org/3/tv/${currentMovie.id}/recommendations?api_key=${apiKey}`)
@@ -129,10 +133,10 @@ export function fetchMovieInfo(id,type) {
       })
       .then(isResponseOk)
       .then(relatedMovies => {
-        let converter = urlString === "movie" ? convertToMovie : convertToTVShow;
+        let converter = type === "movie" ? convertToMovie : convertToTVShow;
         let movies = [];
 
-        if(type === "movie") {
+        if(type === "movie" && relatedMovies.length > 0) {
           let directorMovies = relatedMovies.crew.filter(function (person) {
             return person.job == "Director";
           });
@@ -143,13 +147,12 @@ export function fetchMovieInfo(id,type) {
               release_date: movie.release_date,
               director: movie.director,
               id: movie.id,
-              type: urlString
+              type: "movie"
             };
             return movieforShow;
           });
         } else {
           movies = relatedMovies.results.map(function(movie) {
-            movie.type = urlString;
             return converter(movie);
           });
         }
@@ -172,8 +175,12 @@ function convertToMovie(movie) {
     poster: movie.poster_path,
     title: movie.title,
     release_date: movie.release_date,
+    vote_average: movie.vote_average,
+    runtime: movie.runtime,
+    overview: movie.overview,
+    budget: movie.budget,
     id: movie.id,
-    type: movie.type
+    type: "movie"
   }
 }
 
@@ -182,33 +189,12 @@ function convertToTVShow(movie) {
     poster: movie.poster_path,
     title: movie.name,
     release_date: movie.first_air_date,
-    id: movie.id,
-    type: movie.type
-  }
-}
-function convertToMovieWithInfo(movie) {
-  return {
-    poster: movie.poster_path,
-    title: movie.title,
-    release_date: movie.release_date,
     vote_average: movie.vote_average,
-    runtime: movie.runtime,
-    overview: movie.overview,
-    budget: movie.budget,
-    id: movie.id
-  }
-}
-
-function convertToTVShowWithInfo(movie) {
-  return {
-    poster: movie.poster_path,
-    title: movie.name,
-    release_date: movie.first_air_date,
-    vote_average: movie.vote_average,
-    runtime: movie.episode_run_time[0],
+    runtime: movie.episode_run_time ? movie.episode_run_time[0] : null,
     overview: movie.overview,
     seasons: movie.number_of_seasons,
     last_air_date: movie.last_air_date,
-    id: movie.id
+    id: movie.id,
+    type: "tv"
   }
 }

@@ -71,7 +71,7 @@ const render = (netflixStore) => {
               <Route exact path="/" component={ListResultContainer} />
               <Route exact path="/search" component={ListResultContainer} />
               <Route path="/search/:searchQuery" component={ListResultContainer} />
-              <Route path="/film/:filmId/:type" component={FilmDescriptionContainer} />
+              <Route path="/:type/:filmId/" component={FilmDescriptionContainer} />
             </Switch>
           </App>
         </Router>
