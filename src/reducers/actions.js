@@ -91,7 +91,8 @@ export function fetchMovies() {
               poster: movie.poster_path,
               title: movie.title,
               release_date: movie.release_date,
-              id: movie.id
+              id: movie.id,
+              type: urlString
             };
             return fetchedMovie;
           })
@@ -101,7 +102,8 @@ export function fetchMovies() {
               poster: movie.poster_path,
               title: movie.name,
               release_date: movie.first_air_date,
-              id: movie.id
+              id: movie.id,
+              type: urlString
             };
             return fetchedMovie;
           })
@@ -116,25 +118,19 @@ export function setSearchInput(searchText) {
   return { type: SEARCH_INPUT, searchText}
 }
 
-export function fetchMovieInfo(id) {
+export function fetchMovieInfo(id,type) {
   let currentMovie = {};
-  return function (dispatch, getState) {
-    let state = getState();
+  return function (dispatch) {
     dispatch(requestMovies(id));//TODO is it necessary?
 
     /*TODO move similar code as for fetchMovies to common place?*/
-    let urlString = "";
-    if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
-      urlString = "movie"
-    } else {
-      urlString = "tv"
-    }
+    let urlString = type;
 
     return fetch(`http://api.themoviedb.org/3/${urlString}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
       .then(movie => {
         let fetchedMovie = {};
-        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+        if(type === "movie") {
           fetchedMovie = {
             poster: movie.poster_path,
             title: movie.title,
@@ -167,7 +163,7 @@ export function fetchMovieInfo(id) {
       })
       .then(isResponseOk)
       .then(movie => {
-        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+        if(type === "movie") {
           let director = movie.crew.filter(function(person) {
             return person.job == "Director";
           });
@@ -181,7 +177,7 @@ export function fetchMovieInfo(id) {
       })
       .then(isResponseOk)
       .then(relatedMovies => {
-        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
+        if(type === "movie") {
           let directorMovies = relatedMovies.crew.filter(function (person) {
             return person.job == "Director";
           });
@@ -191,7 +187,8 @@ export function fetchMovieInfo(id) {
               title: movie.title,
               release_date: movie.release_date,
               director: movie.director,
-              id: movie.id
+              id: movie.id,
+              type: urlString
             };
             return movieforShow;
           });
@@ -202,7 +199,8 @@ export function fetchMovieInfo(id) {
               poster: movie.poster_path,
               title: movie.name,
               release_date: movie.first_air_date,
-              id: movie.id
+              id: movie.id,
+              type: urlString
             };
             return movieforShow;
           });

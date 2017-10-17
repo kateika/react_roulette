@@ -18,6 +18,7 @@ export class MovieList extends React.Component {
         release_date={extractYear(movie.release_date)}
         poster={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${movie.poster}`}
         id={movie.id}
+        type={movie.type}
         key={index}
       />
     });

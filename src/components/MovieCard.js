@@ -4,9 +4,10 @@ import * as css from '../styles/movie-card.css';
 
 export class MovieCard extends React.Component {
   render() {
-    const { poster, title, release_date, id } = this.props;
+    //console.warn(this.props);
+    const { poster, title, release_date, id, type } = this.props;
     return (
-      <Link to={`/film/${id}`} className={css.card}>
+      <Link to={`/film/${id}/${type}`} className={css.card}>
         <div className={css.content}>
           <img src={poster}/>
           <div className="clearfix">

@@ -11,8 +11,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadMovieInfo: (id) => {
-      dispatch(fetchMovieInfo(id));
+    loadMovieInfo: (id, type) => {
+      dispatch(fetchMovieInfo(id, type));
     }
   }
 };
