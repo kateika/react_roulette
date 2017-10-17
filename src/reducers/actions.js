@@ -83,32 +83,13 @@ export function fetchMovies() {
 
     return fetch(`https://api.themoviedb.org/3/search/${urlString}?api_key=${apiKey}&${urlParams.toString().toLowerCase()}`)
       .then(isResponseOk)
-      .then(movies => {
-        let fetchedMovies = [];
-        if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
-          fetchedMovies = movies.results.map(function(movie) {
-            let fetchedMovie = {
-              poster: movie.poster_path,
-              title: movie.title,
-              release_date: movie.release_date,
-              id: movie.id,
-              type: urlString
-            };
-            return fetchedMovie;
-          })
-        } else {
-          fetchedMovies = movies.results.map(function(movie) {
-            let fetchedMovie = {
-              poster: movie.poster_path,
-              title: movie.name,
-              release_date: movie.first_air_date,
-              id: movie.id,
-              type: urlString
-            };
-            return fetchedMovie;
-          })
-        }
-        dispatch(receiveMovies(fetchedMovies));
+      .then(fetchedMovies => {
+        let converter = state.searchBy === SearchBy.SEARCH_BY_MOVIES ? convertToMovie : convertToTVShow;
+        let movies = fetchedMovies.results.map(function(movie) {
+          movie.type = urlString;
+          return converter(movie);
+        });
+        dispatch(receiveMovies(movies));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -123,39 +104,13 @@ export function fetchMovieInfo(id,type) {
   return function (dispatch) {
     dispatch(requestMovies(id));//TODO is it necessary?
 
-    /*TODO move similar code as for fetchMovies to common place?*/
     let urlString = type;
 
     return fetch(`http://api.themoviedb.org/3/${urlString}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
-      .then(movie => {
-        let fetchedMovie = {};
-        if(type === "movie") {
-          fetchedMovie = {
-            poster: movie.poster_path,
-            title: movie.title,
-            release_date: movie.release_date,
-            vote_average: movie.vote_average,
-            runtime: movie.runtime,
-            overview: movie.overview,
-            budget: movie.budget,
-            id: movie.id
-          };
-        } else {
-          fetchedMovie = {
-            poster: movie.poster_path,
-            title: movie.name,
-            release_date: movie.first_air_date,
-            vote_average: movie.vote_average,
-            runtime: movie.episode_run_time[0],
-            overview: movie.overview,
-            seasons: movie.number_of_seasons,
-            last_air_date: movie.last_air_date,
-            id: movie.id
-          };
-        }
-
-        currentMovie = fetchedMovie;
+      .then(fetchedMovie => {
+        let converter = urlString === "movie" ? convertToMovieWithInfo : convertToTVShowWithInfo;
+        currentMovie = converter(fetchedMovie);
         return fetch(`https://api.themoviedb.org/3/${urlString}/${id}/credits?api_key=${apiKey}`)
       })
       .then(isResponseOk)
@@ -174,11 +129,14 @@ export function fetchMovieInfo(id,type) {
       })
       .then(isResponseOk)
       .then(relatedMovies => {
+        let converter = urlString === "movie" ? convertToMovie : convertToTVShow;
+        let movies = [];
+
         if(type === "movie") {
           let directorMovies = relatedMovies.crew.filter(function (person) {
             return person.job == "Director";
           });
-          let moviesforShow = directorMovies.map(function(movie) {
+          movies = directorMovies.map(function(movie) {
             let movieforShow = {
               poster: movie.poster_path,
               title: movie.title,
@@ -189,20 +147,13 @@ export function fetchMovieInfo(id,type) {
             };
             return movieforShow;
           });
-          dispatch(receiveRelatedMovies(moviesforShow));
         } else {
-          let moviesforShow = relatedMovies.results.map(function(movie) {
-            let movieforShow = {
-              poster: movie.poster_path,
-              title: movie.name,
-              release_date: movie.first_air_date,
-              id: movie.id,
-              type: urlString
-            };
-            return movieforShow;
+          movies = relatedMovies.results.map(function(movie) {
+            movie.type = urlString;
+            return converter(movie);
           });
-          dispatch(receiveRelatedMovies(moviesforShow));
         }
+        dispatch(receiveRelatedMovies(movies));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -213,4 +164,51 @@ function isResponseOk(res) {
     throw Error(res.statusText);
   }
   return res.json();
+}
+
+
+function convertToMovie(movie) {
+  return {
+    poster: movie.poster_path,
+    title: movie.title,
+    release_date: movie.release_date,
+    id: movie.id,
+    type: movie.type
+  }
+}
+
+function convertToTVShow(movie) {
+  return {
+    poster: movie.poster_path,
+    title: movie.name,
+    release_date: movie.first_air_date,
+    id: movie.id,
+    type: movie.type
+  }
+}
+function convertToMovieWithInfo(movie) {
+  return {
+    poster: movie.poster_path,
+    title: movie.title,
+    release_date: movie.release_date,
+    vote_average: movie.vote_average,
+    runtime: movie.runtime,
+    overview: movie.overview,
+    budget: movie.budget,
+    id: movie.id
+  }
+}
+
+function convertToTVShowWithInfo(movie) {
+  return {
+    poster: movie.poster_path,
+    title: movie.name,
+    release_date: movie.first_air_date,
+    vote_average: movie.vote_average,
+    runtime: movie.episode_run_time[0],
+    overview: movie.overview,
+    seasons: movie.number_of_seasons,
+    last_air_date: movie.last_air_date,
+    id: movie.id
+  }
 }
