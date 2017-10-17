@@ -18,7 +18,6 @@ export class FilmDescription extends React.Component {
 
   render() {
     let movieListBar = `Films by ${this.props.currentMovie.director}`;
-
     return (
       <div>
         <div className="page-wrapper">
@@ -33,7 +32,7 @@ export class FilmDescription extends React.Component {
           </header>
           <main>
             <MovieList movies={this.props.relatedMovies}>
-              { movieListBar }
+              {this.props.currentMovie.director ? movieListBar : null}
             </MovieList>
           </main>
         </div>

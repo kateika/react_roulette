@@ -139,8 +139,6 @@ export function fetchMovieInfo(id,type) {
             runtime: movie.runtime,
             overview: movie.overview,
             budget: movie.budget,
-            seasons: movie.number_of_seasons, //don't need this
-            last_air_date: movie.last_air_date, //don't need this
             id: movie.id
           };
         } else {
@@ -149,9 +147,8 @@ export function fetchMovieInfo(id,type) {
             title: movie.name,
             release_date: movie.first_air_date,
             vote_average: movie.vote_average,
-            runtime: movie.episode_runtime,
+            runtime: movie.episode_run_time[0],
             overview: movie.overview,
-            budget: movie.budget, //don't need this
             seasons: movie.number_of_seasons,
             last_air_date: movie.last_air_date,
             id: movie.id
