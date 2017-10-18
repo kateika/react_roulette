@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { FilmDescription } from './../components/FilmDescription';
-import { fetchMovieInfo } from '../reducers/actions';
+import { fetchMovieInfo, fetchTVShowInfo } from '../reducers/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadMovieInfo: (id, type) => {
-      dispatch(fetchMovieInfo(id, type));
+      if(type == "movie") {
+        dispatch(fetchMovieInfo(id, type));
+      } else {
+        dispatch(fetchTVShowInfo(id, type));
+      }
     }
   }
 };
