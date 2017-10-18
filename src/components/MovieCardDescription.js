@@ -9,7 +9,7 @@ export class MovieCardDescription extends React.Component {
                    </div>;
     return (
       <article className={css.container + " clearfix"}>
-        <img src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster}`} className={css.poster}/>
+        {poster ? <img src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster}`} className={css.poster}/> : null}
         <div className={css.description}>
           <h4 className={css.title}>{title}
             { vote_average ? rating : null }

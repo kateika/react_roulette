@@ -5,7 +5,7 @@ import { Search } from '../components/Search';
 const mapStateToProps = (state) => {
   return {
     isMoviesActive: state.searchBy === SearchBy.SEARCH_BY_MOVIES,
-    isDirectorActive: state.searchBy === SearchBy.SEARCH_BY_DIRECTOR,
+    isTVShowActive: state.searchBy === SearchBy.SEARCH_BY_TVSHOW,
     searchText: state.searchText
   }
 };
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setSearchBy(SearchBy.SEARCH_BY_MOVIES));
     },
     onDirectorClick: () => {
-      dispatch(setSearchBy(SearchBy.SEARCH_BY_DIRECTOR));
+      dispatch(setSearchBy(SearchBy.SEARCH_BY_TVSHOW));
     },
     onSubmitSearch: (e) => {
       e.preventDefault();

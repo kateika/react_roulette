@@ -14,7 +14,7 @@ export class Search extends React.Component {
     }
 
     let searchByDirector;
-    if(this.props.isDirectorActive) {
+    if(this.props.isTVShowActive) {
       searchByDirector = <button type="button" className="btn btn-active">tv shows</button>
     } else {
       searchByDirector = <button type="button"

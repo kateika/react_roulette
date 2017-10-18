@@ -16,7 +16,7 @@ export const SET_SORT_BY = 'SET_SORT_BY';
 
 export const SearchBy= {
   SEARCH_BY_MOVIES: 'SEARCH_BY_MOVIES',
-  SEARCH_BY_DIRECTOR: 'SEARCH_BY_DIRECTOR'
+  SEARCH_BY_TVSHOW: 'SEARCH_BY_TVSHOW'
 };
 
 export const SortBy = {
@@ -88,7 +88,10 @@ export function fetchMovies() {
         let movies = fetchedMovies.results.map(function(movie) {
           return converter(movie);
         });
-        dispatch(receiveMovies(movies));
+        let filteredMoviesWIthoutPoster = movies.filter(function(movie) {
+          return movie.poster;
+        });
+        dispatch(receiveMovies(filteredMoviesWIthoutPoster));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -135,8 +138,7 @@ export function fetchMovieInfo(id,type) {
       .then(relatedMovies => {
         let converter = type === "movie" ? convertToMovie : convertToTVShow;
         let movies = [];
-
-        if(type === "movie" && relatedMovies.length > 0) {
+        if(type === "movie") {
           let directorMovies = relatedMovies.crew.filter(function (person) {
             return person.job == "Director";
           });
@@ -156,7 +158,10 @@ export function fetchMovieInfo(id,type) {
             return converter(movie);
           });
         }
-        dispatch(receiveRelatedMovies(movies));
+        let filteredMoviesWIthoutPoster = movies.filter(function(movie) {
+          return movie.poster;
+        });
+        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
