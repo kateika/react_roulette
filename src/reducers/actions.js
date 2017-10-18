@@ -85,13 +85,10 @@ export function fetchMovies() {
       .then(isResponseOk)
       .then(fetchedMovies => {
         let converter = state.searchBy === SearchBy.SEARCH_BY_MOVIES ? convertToMovie : convertToTVShow;
-        let movies = fetchedMovies.results.map(function(movie) {
-          return converter(movie);
-        });
-        let filteredMoviesWIthoutPoster = movies.filter(function(movie) {
-          return movie.poster;
-        });
-        dispatch(receiveMovies(filteredMoviesWIthoutPoster));
+        let movies = fetchedMovies.results
+                     .map(converter)
+                     .filter(withPoster);
+        dispatch(receiveMovies(movies));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -115,13 +112,11 @@ export function fetchTVShowInfo(id,type) {
       })
       .then(isResponseOk)
       .then(movies => {
-        let relatedMovies = movies.results.map(function(movie) {
-          return convertToTVShow(movie);
-        });
+        let relatedMovies = movies.results
+            .map(convertToTVShow)
+            .filter(withPoster);
 
-        let filteredTVShowsWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
-
-        dispatch(receiveRelatedMovies(filteredTVShowsWIthoutPoster));
+        dispatch(receiveRelatedMovies(relatedMovies));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -140,49 +135,30 @@ export function fetchMovieInfo(id,type) {
       })
       .then(isResponseOk)
       .then(movie => {
-        let director = movie.crew.filter(function(person) {
-          return person.job == "Director";
-        });
-        if(director.length > 0) {
-          currentMovie.director = director[0].name;
+        let director = movie.crew.find(isDirector);
+        if(director) {
+          currentMovie.director = director.name;
           dispatch(receiveCurrentMovie(currentMovie));
-          return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
-                      .then(isResponseOk)
-                      .then(movies => {
-                        let directorMovies = movies.crew.filter(function (person) {
-                          return person.job == "Director";
-                        });
-                        let relatedMovies = directorMovies.map(function(movie) {
-                          let movieforDisplay = {
-                            poster: movie.poster_path,
-                            title: movie.title,
-                            release_date: movie.release_date,
-                            director: movie.director,
-                            id: movie.id,
-                            type: "movie"
-                          };
-                          return movieforDisplay;
-                        });
-                        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
-                        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
-                      })
+          return fetch(`https://api.themoviedb.org/3/person/${director.id}/credits?api_key=${apiKey}`)
+            .then(isResponseOk)
+            .then(movies => {
+              let directorMovies = movies.crew.filter(isDirector).filter(function(movie) {
+                return movie.title != currentMovie.title;
+              });
+              let relatedMovies = directorMovies
+                  .map(convertToMovie)
+                  .filter(withPoster);
+              dispatch(receiveRelatedMovies(relatedMovies));
+            })
         } else {
           dispatch(receiveCurrentMovie(currentMovie));
           return fetch(`https://api.themoviedb.org/3/movie/${currentMovie.id}/recommendations?api_key=${apiKey}`)
                       .then(isResponseOk)
                       .then(movies => {
-                        let relatedMovies = movies.results.map(function(movie) {
-                          let movieforDisplay = {
-                            poster: movie.poster_path,
-                            title: movie.title,
-                            release_date: movie.release_date,
-                            id: movie.id,
-                            type: "movie"
-                          };
-                          return movieforDisplay;
-                        });
-                        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
-                        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
+                        let relatedMovies = movies.results
+                            .map(convertToMovie)
+                            .filter(withPoster);
+                        dispatch(receiveRelatedMovies(relatedMovies));
                       })
         }
       })
@@ -207,6 +183,7 @@ function convertToMovie(movie) {
     runtime: movie.runtime,
     overview: movie.overview,
     budget: movie.budget,
+    director: movie.director ? movie.director : null,
     id: movie.id,
     type: "movie"
   }
@@ -227,8 +204,10 @@ function convertToTVShow(movie) {
   }
 }
 
-function filterItemsWithoutPoster(arr) {
-  return arr.filter(function(movie) {
-    return movie.poster;
-  });
+function withPoster(movie) {
+  return movie.poster;
+}
+
+function isDirector(person) {
+  return person.job === "Director";
 }
