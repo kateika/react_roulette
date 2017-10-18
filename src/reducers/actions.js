@@ -119,9 +119,9 @@ export function fetchTVShowInfo(id,type) {
           return convertToTVShow(movie);
         });
 
-        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
+        let filteredTVShowsWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
 
-        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
+        dispatch(receiveRelatedMovies(filteredTVShowsWIthoutPoster));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
@@ -147,29 +147,44 @@ export function fetchMovieInfo(id,type) {
           currentMovie.director = director[0].name;
           dispatch(receiveCurrentMovie(currentMovie));
           return fetch(`https://api.themoviedb.org/3/person/${director[0].id}/credits?api_key=${apiKey}`)
+                      .then(isResponseOk)
+                      .then(movies => {
+                        let directorMovies = movies.crew.filter(function (person) {
+                          return person.job == "Director";
+                        });
+                        let relatedMovies = directorMovies.map(function(movie) {
+                          let movieforDisplay = {
+                            poster: movie.poster_path,
+                            title: movie.title,
+                            release_date: movie.release_date,
+                            director: movie.director,
+                            id: movie.id,
+                            type: "movie"
+                          };
+                          return movieforDisplay;
+                        });
+                        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
+                        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
+                      })
         } else {
           dispatch(receiveCurrentMovie(currentMovie));
           return fetch(`https://api.themoviedb.org/3/movie/${currentMovie.id}/recommendations?api_key=${apiKey}`)
+                      .then(isResponseOk)
+                      .then(movies => {
+                        let relatedMovies = movies.results.map(function(movie) {
+                          let movieforDisplay = {
+                            poster: movie.poster_path,
+                            title: movie.title,
+                            release_date: movie.release_date,
+                            id: movie.id,
+                            type: "movie"
+                          };
+                          return movieforDisplay;
+                        });
+                        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
+                        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
+                      })
         }
-      })
-      .then(isResponseOk)
-      .then(movies => {
-        let directorMovies = movies.crew.filter(function (person) {
-          return person.job == "Director";
-        });
-        let relatedMovies = directorMovies.map(function(movie) {
-          let movieforShow = {
-            poster: movie.poster_path,
-            title: movie.title,
-            release_date: movie.release_date,
-            director: movie.director,
-            id: movie.id,
-            type: "movie"
-          };
-          return movieforShow;
-        });
-        let filteredMoviesWIthoutPoster = filterItemsWithoutPoster(relatedMovies);
-        dispatch(receiveRelatedMovies(filteredMoviesWIthoutPoster));
       })
       .catch(error => console.error("An error occurred: ", error));
   }
