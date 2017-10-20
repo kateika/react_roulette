@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 import { setSearchBy, SearchBy, fetchMovies, setSearchInput } from '../reducers/actions';
 import { Search } from '../components/Search';
 
@@ -28,9 +29,13 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-const SearchForm = connect(
+let SearchForm = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Search);
 
-export { SearchForm }
+SearchForm = reduxForm({
+  form: 'search'
+})(SearchForm);
+
+export {SearchForm}

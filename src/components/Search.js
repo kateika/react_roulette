@@ -1,5 +1,6 @@
 import React from 'react';
 import * as css from '../styles/search.css';
+import { Field } from 'redux-form'
 
 export class Search extends React.Component {
   render() {
@@ -27,7 +28,9 @@ export class Search extends React.Component {
         <h2 className={css.title}>Find your movie</h2>
         <form className="clearfix">
           <div>
-            <input type="search" value={this.props.searchText} onChange={this.props.onSearchChange}/>
+            <label>
+              <Field type="search" component="input" name="searchText" value={this.props.searchText} onChange={this.props.onSearchChange}/>
+            </label>
           </div>
           <div className={css.choice}>
             <span>Search by</span>
@@ -35,7 +38,9 @@ export class Search extends React.Component {
             {searchByDirector}
           </div>
           <div className={css.submitContainer}>
-            <input type="submit" value="search" className="btn" onClick={this.props.onSubmitSearch}/>
+            <label>
+              <input type="submit" value="search" className="btn" onClick={this.props.onSubmitSearch}/>
+            </label>
           </div>
         </form>
       </div>

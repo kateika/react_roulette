@@ -1,5 +1,6 @@
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -18,17 +19,18 @@ import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
 import NotFound from '../components/NotFound';
 
-let reducer = combineReducers({
+let rootReducer = combineReducers({
   searchBy,
   sortBy,
   movies,
   currentMovie,
   relatedMovies,
-  searchText
+  searchText,
+  form: formReducer
 });
 
 
-let app = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
+let app = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
 //let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
 // let netflixStore = createStore(netflixApp);
 
