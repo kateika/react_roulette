@@ -3,57 +3,34 @@ import thunkMiddleware from 'redux-thunk';
 import { AppContainer } from 'react-hot-loader';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+
+import searchBy from './searchBy';
+import sortBy from './sortBy';
+import movies from './movies';
+import currentMovie from './currentMovie';
+import relatedMovies from './relatedMovies';
+import searchText from './searchText';
+
 import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
-import { SearchBy, SET_SEARCH_BY, SortBy, SET_SORT_BY, SEARCH_INPUT, RECEIVE_MOVIES, RECEIVE_CURRENT_MOVIE, RECEIVE_RELATED_MOVIES } from './actions';
 
 
+let reducer = combineReducers({
+  searchBy,
+  sortBy,
+  movies,
+  currentMovie,
+  relatedMovies,
+  searchText
+});
 
-const initialState = {
-  searchBy: SearchBy.SEARCH_BY_MOVIES,
-  sortBy: SortBy.SORT_BY_RELEASE_DATE,
-  movies: [],
-  currentMovie: {},
-  relatedMovies: [],
-  searchText: ''
-};
 
-const app = (state = initialState, action) => {
-  switch(action.type) {
-    case SET_SEARCH_BY:
-      return Object.assign({}, state, {
-        searchBy: action.searchBy
-      });
-    case SET_SORT_BY:
-      return Object.assign({}, state, {
-        sortBy: action.sortBy
-      });
-    case RECEIVE_MOVIES:
-      return Object.assign({}, state, {
-        movies: action.movies
-      });
-    case RECEIVE_CURRENT_MOVIE:
-      return Object.assign({}, state, {
-        currentMovie: action.currentMovie
-      });
-    case RECEIVE_RELATED_MOVIES:
-      return Object.assign({}, state, {
-        relatedMovies: action.relatedMovies
-      });
-    case SEARCH_INPUT:
-      return Object.assign({}, state, {
-        searchText: action.searchText
-      });
-    default:
-      return state
-  }
-};
-
-let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
+let app = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
+console.log(app.getState());
+//let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
 // let netflixStore = createStore(netflixApp);
 
 
@@ -61,10 +38,10 @@ const application = document.createElement('div');
 document.body.appendChild(application);
 
 
-const render = (netflixStore) => {
+const render = (app) => {
   ReactDom.render(
     <AppContainer>
-      <Provider store={netflixStore}>
+      <Provider store={app}>
         <Router>
           <App>
             <Switch>
@@ -81,8 +58,8 @@ const render = (netflixStore) => {
   )
 };
 
-render(netflixStore);
+render(app);
 
 if (module.hot) {
-  module.hot.accept('../containers/App', () => render(netflixStore));
+  module.hot.accept('../containers/App', () => render(app));
 }
