@@ -1,27 +1,29 @@
 import React from 'react';
 import * as css from '../styles/movie-card-description.css';
 
-export class MovieCardDescription extends React.Component {
-  render() {
-    const { poster, show_title, rating, category, release_year, runtime, summary, director, show_cast } = this.props.currentMovie;
+export function MovieCardDescription(props) {
+  const { poster, title, vote_average, release_date, runtime, overview, budget, seasons, last_air_date } = props.currentMovie;
+  const rating = <div className={css.ratingCircle}>
+                    <span className={css.rating}>{vote_average}</span>
+                  </div>;
+  return (
+    <article className={css.container + " clearfix"}>
+      {poster ? <img src={`https://image.tmdb.org/t/p/w185_and_h278_bestv2${poster}`} className={css.poster}/> : null}
+      <div className={css.description}>
+        <h4 className={css.title}>{title}
+          { vote_average ? rating : null }
+        </h4>
 
-    return (
-      <article className={css.container + " clearfix"}>
-        <img src={poster} className={css.poster}/>
-        <div className={css.description}>
-          <h4 className={css.title}>{show_title}</h4>
-          <span className={css.rating}>{rating}</span>
-          <span className={css.caption}>{category}</span>
-          <div className={css.boldCaption}>
-            <span className={css.year}>{release_year}</span>
-            <span>{runtime}</span>
-          </div>
-          <p>{summary}</p>
-          {director ? <small>Director: {director} </small> : ""}
-          {show_cast ? <small>Cast: {show_cast} </small> : ""}
+        <div className={css.boldCaption}>
+          { release_date ? <span className={css.year}>{release_date}</span> : null }
+          { runtime ? <span>{runtime} min</span> : null }
         </div>
-      </article>
-    )
-  }
+        <p>{overview}</p>
+        { budget ? <span className={css.caption}>Budget is {budget}$</span> : null }
+        { seasons ? <span className={css.caption}>Seasons: {seasons}</span> : null }
+        { last_air_date ? <span className={css.caption}>Last air date: {last_air_date}</span> : null }
+      </div>
+    </article>
+  )
 };
 
