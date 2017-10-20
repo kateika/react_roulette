@@ -1,13 +1,12 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { setSearchBy, SearchBy, fetchMovies, setSearchInput } from '../reducers/actions';
+import { setSearchBy, SearchBy, fetchMovies } from '../reducers/actions';
 import { Search } from '../components/Search';
 
 const mapStateToProps = (state) => {
   return {
     isMoviesActive: state.searchBy === SearchBy.SEARCH_BY_MOVIES,
-    isTVShowActive: state.searchBy === SearchBy.SEARCH_BY_TVSHOW,
-    searchText: state.searchText
+    isTVShowActive: state.searchBy === SearchBy.SEARCH_BY_TVSHOW
   }
 };
 
@@ -19,12 +18,8 @@ const mapDispatchToProps = (dispatch) => {
     onDirectorClick: () => {
       dispatch(setSearchBy(SearchBy.SEARCH_BY_TVSHOW));
     },
-    onSubmitSearch: (e) => {
-      e.preventDefault();
-      dispatch(fetchMovies());
-    },
-    onSearchChange: (e) => {
-      dispatch(setSearchInput(e.target.value));
+    onSubmitSearch: (values) => {
+      dispatch(fetchMovies(values.searchText));
     }
   }
 };
@@ -35,7 +30,8 @@ let SearchForm = connect(
 )(Search);
 
 SearchForm = reduxForm({
-  form: 'search'
+  form: 'search',
+  destroyOnUnmount: false
 })(SearchForm);
 
 export {SearchForm}

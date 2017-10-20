@@ -11,7 +11,6 @@ import sortBy from './sortBy';
 import movies from './movies';
 import currentMovie from './currentMovie';
 import relatedMovies from './relatedMovies';
-import searchText from './searchText';
 
 import ReactDom from 'react-dom';
 import App from '../containers/App';
@@ -25,7 +24,6 @@ let rootReducer = combineReducers({
   movies,
   currentMovie,
   relatedMovies,
-  searchText,
   form: formReducer
 });
 

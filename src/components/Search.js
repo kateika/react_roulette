@@ -26,10 +26,10 @@ export class Search extends React.Component {
     return (
       <div className={css.searchContainer}>
         <h2 className={css.title}>Find your movie</h2>
-        <form className="clearfix">
+        <form className="clearfix" onSubmit={this.props.handleSubmit(this.props.onSubmitSearch)}>
           <div>
             <label>
-              <Field type="search" component="input" name="searchText" value={this.props.searchText} onChange={this.props.onSearchChange}/>
+              <Field type="search" component="input" name="searchText"/>
             </label>
           </div>
           <div className={css.choice}>
@@ -39,7 +39,7 @@ export class Search extends React.Component {
           </div>
           <div className={css.submitContainer}>
             <label>
-              <input type="submit" value="search" className="btn" onClick={this.props.onSubmitSearch}/>
+              <input type="submit" value="search" className="btn"/>
             </label>
           </div>
         </form>

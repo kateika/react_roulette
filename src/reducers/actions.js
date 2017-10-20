@@ -2,7 +2,6 @@ let apiKey = localStorage.getItem('apiKey');
 /*
  * action types
  */
-export const SEARCH_INPUT = 'SEARCH_INPUT';
 export const REQUEST_MOVIES = 'REQUEST_MOVIES'; //for spinner in the future
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 export const RECEIVE_CURRENT_MOVIE = 'RECEIVE_CURRENT_MOVIE';
@@ -28,10 +27,6 @@ export const SortBy = {
  * action creators
  */
 
-export function search(text, searchBy) {
-  return { type: SEARCH, text, searchBy };
-}
-
 export function setSortBy(sortBy) {
   return { type: SET_SORT_BY, sortBy };
 }
@@ -40,8 +35,8 @@ export function setSearchBy(searchBy) {
   return { type: SET_SEARCH_BY, searchBy };
 }
 
-export function requestMovies(text) {
-  return { type: REQUEST_MOVIES, text }
+export function requestMovies() {
+  return { type: REQUEST_MOVIES }
 }
 
 export function receiveMovies(json) {
@@ -65,15 +60,15 @@ export function receiveRelatedMovies(json) {
   }
 }
 
-export function fetchMovies() {
+export function fetchMovies(query) {
   return function (dispatch, getState) {
     let state = getState();
-    dispatch(requestMovies(state.searchText));//TODO is it necessary?
+    dispatch(requestMovies(query));//TODO is it necessary?
 
     let urlString = "";
     let urlParams = new URLSearchParams();
 
-    urlParams.append("query", state.searchText);
+    urlParams.append("query", query);
 
     if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
       urlString = "movie"
@@ -94,9 +89,9 @@ export function fetchMovies() {
   }
 }
 
-export function setSearchInput(searchText) {
-  return { type: SEARCH_INPUT, searchText}
-}
+//export function setSearchInput(searchText) {
+//  return { type: SEARCH_INPUT, searchText}
+//}
 
 export function fetchTVShowInfo(id,type) {
   let currentMovie = {};
