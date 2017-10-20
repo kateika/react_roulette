@@ -16,7 +16,7 @@ import ReactDom from 'react-dom';
 import App from '../containers/App';
 import { ListResultContainer } from '../containers/ListResultContainer';
 import { FilmDescriptionContainer } from '../containers/FilmDescriptionContainer';
-
+import NotFound from '../components/NotFound';
 
 let reducer = combineReducers({
   searchBy,
@@ -29,7 +29,6 @@ let reducer = combineReducers({
 
 
 let app = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
-console.log(app.getState());
 //let netflixStore = createStore(app, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
 // let netflixStore = createStore(netflixApp);
 
@@ -49,6 +48,7 @@ const render = (app) => {
               <Route exact path="/search" component={ListResultContainer} />
               <Route path="/search/:searchQuery" component={ListResultContainer} />
               <Route path="/:type/:filmId/" component={FilmDescriptionContainer} />
+              <Route path="*" component={NotFound} />
             </Switch>
           </App>
         </Router>
