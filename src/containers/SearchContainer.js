@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { setSearchBy, SearchBy, fetchMovies } from '../reducers/actions';
+import { setSearchBy, SearchBy, fetchMovies } from '../actions/index';
 import { Search } from '../components/Search';
 
 const mapStateToProps = (state) => {
@@ -24,14 +24,14 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-let SearchForm = connect(
+let SearchContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Search);
 
-SearchForm = reduxForm({
+SearchContainer = reduxForm({
   form: 'search',
   destroyOnUnmount: false
-})(SearchForm);
+})(SearchContainer);
 
-export {SearchForm}
+export {SearchContainer}

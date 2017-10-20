@@ -1,4 +1,4 @@
-import { RECEIVE_MOVIES } from './actions';
+import { RECEIVE_MOVIES } from '../actions/index';
 
 export default function movies(state = [], action) {
   switch(action.type) {

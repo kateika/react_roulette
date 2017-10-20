@@ -9,7 +9,7 @@ const config = {
 
     entry: [
         'react-hot-loader/patch',
-        './reducers/index.js'
+        './index.js'
     ],
 
     output: {

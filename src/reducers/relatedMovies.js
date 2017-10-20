@@ -1,4 +1,4 @@
-import { RECEIVE_RELATED_MOVIES } from './actions';
+import { RECEIVE_RELATED_MOVIES } from '../actions/index';
 
 export default function relatedMovies(state = [], action) {
   switch(action.type) {
