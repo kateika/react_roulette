@@ -89,10 +89,6 @@ export function fetchMovies(query) {
   }
 }
 
-//export function setSearchInput(searchText) {
-//  return { type: SEARCH_INPUT, searchText}
-//}
-
 export function fetchTVShowInfo(id,type) {
   let currentMovie = {};
   return function (dispatch) {
