@@ -1,5 +1,5 @@
-import sortBy from '../src/reducers/sortBy';
-import { SET_SORT_BY } from '../src/reducers/actions';
+import sortBy from '../../src/reducers/sortBy';
+import { SET_SORT_BY } from '../../src/reducers/actions';
 
 describe("sortBy reducer", () => {
   it("should return state for setting sorting", () => {
