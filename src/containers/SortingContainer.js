@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { setSortBy, SortBy } from '../reducers/actions';
+import { setSortBy, SortBy } from '../actions/index';
 import * as cssList from '../styles/movie-list.css';
 
 const mapStateToProps = (state) => {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-let Sorting = (props) => {
+let SortingContainer = (props) => {
   let sortByDate;
   if(props.isDateActive) {
     sortByDate = <button type="button" className={cssList.linkActive}>release date</button>;
@@ -45,9 +45,9 @@ let Sorting = (props) => {
   )
 };
 
-Sorting = connect(
+SortingContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Sorting);
+)(SortingContainer);
 
-export { Sorting };
+export { SortingContainer };

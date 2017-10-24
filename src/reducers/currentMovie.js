@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENT_MOVIE } from './actions';
+import { RECEIVE_CURRENT_MOVIE } from '../actions/index';
 
 export default function currentMovie(state = {}, action) {
   switch(action.type) {

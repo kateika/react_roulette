@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { ListResult } from '../components/ListResult';
-import { SortBy } from '../reducers/actions';
+import { SortBy } from '../actions/index';
 
 const mapStateToProps = (state) => {
   const sortedMovies = state.movies.slice();
@@ -22,4 +22,4 @@ const ListResultContainer = connect(
   mapStateToProps
 )(ListResult);
 
-export { ListResultContainer }
+export default ListResultContainer;

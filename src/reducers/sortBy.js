@@ -1,4 +1,4 @@
-import { SortBy, SET_SORT_BY} from './actions';
+import { SortBy, SET_SORT_BY} from '../actions/index';
 
 export default function sortBy(state = SortBy.SORT_BY_RELEASE_DATE, action) {
   switch(action.type) {
