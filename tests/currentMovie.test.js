@@ -1,10 +1,11 @@
 import currentMovie from '../src/reducers/currentMovie';
+import { RECEIVE_CURRENT_MOVIE } from '../src/reducers/actions';
 
-describe('currentMovie reducer', () => {
-  it('should return state for current movie', () => {
+describe("currentMovie reducer", () => {
+  it("should return state for current movie", () => {
     expect(
       currentMovie({}, {
-        type: "RECEIVE_CURRENT_MOVIE",
+        type: RECEIVE_CURRENT_MOVIE,
         currentMovie: {
           "adult": false,
           "backdrop_path": "/fCayJrkfRaCRCTh8GqN30f8oyQF.jpg",
@@ -32,5 +33,10 @@ describe('currentMovie reducer', () => {
         ]
       }
     )
-  })
+  });
+
+  it("should return the initial state", () => {
+    expect(
+      currentMovie(undefined, {})).toEqual({})
+  });
 });
