@@ -6,8 +6,8 @@ import Adapter from 'enzyme-adapter-react-15';
 
 configure({ adapter: new Adapter() });
 
-describe("single and plural version of text", () => {
-  describe("1 result", () => {
+describe("Movie list bar of List result component", () => {
+  describe("single result", () => {
     it("render single version", () => {
       const wrapper = shallow(<ListResult movies={["1"]} />);
       expect(wrapper.contains([
@@ -17,8 +17,8 @@ describe("single and plural version of text", () => {
 
   });
 
-  describe("many results", () => {
-    it("render single version", () => {
+  describe("plural results", () => {
+    it("render plural version", () => {
       const wrapper = shallow(<ListResult movies={["1", "2"]} />);
       expect(wrapper.contains([
         <span>2 results was found</span>
