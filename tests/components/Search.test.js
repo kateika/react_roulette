@@ -1,22 +1,26 @@
-//import React from 'react';
-//import { shallow, mount, render } from 'enzyme';
-//import { Search } from '../../src/components/Search';
-//
-//jest.dontMock('../../src/components/Search');
-//
-//describe("Search", function() {
-//  it("renders an `.btn-active`'", function() {
-//    const wrapper = shallow(<Search />);
-//    expect(wrapper.find('.btn-active')).to.have.length(1);
-//    //expect(true).toBe(true);
-//    //expect(shallow(<Foo />).contains(<div className="foo" />)).toBe(true);
-//  });
-///*
-//  it("contains spec with an expectation", function() {
-//    //expect(shallow(<Foo />).is('.foo')).toBe(true);
-//  });
-//
-//  it("contains spec with an expectation", function() {
-//    //expect(mount(<Foo />).find('.foo').length).toBe(1);
-//  });*/
-//});
+import React from "react";
+import { shallow, mount, render } from "enzyme";
+import { Search } from "../../src/components/Search";
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+
+configure({ adapter: new Adapter() });
+
+describe("search by movies is active", () => {
+  describe("movies button", () => {
+    //it("has .btn-active class", () => {
+    //  const wrapper = shallow(<Search isMoviesActive={true} isTVShowActive={false} handleSubmit={() => {}}/>);
+    //  expect(wrapper.find(".choice .btn-active").length).toEqual(1);
+    //});
+    it("doesn't have onClick handler", () => {
+      const wrapper = shallow(<Search isMoviesActive={true} isTVShowActive={false} handleSubmit={() => {}}/>);
+      console.log(wrapper.debug());
+      expect(wrapper.find(".choice").length).toEqual(1);
+    });
+  });
+
+  //describe("tv shows button", () => {
+  //  it("dosen't have .btn-active class")
+  //  it("has onClick handler")
+  //});
+});

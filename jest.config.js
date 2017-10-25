@@ -1,4 +1,9 @@
 module.exports = {
   verbose: true,
-  setupFiles:["./mocks/browserMocks.js"]
+  moduleDirectories: ["node_modules", "src"],
+  testPathIgnorePatterns: [ "<rootDir>[/\\\\](build|docs|node_modules|scripts)[/\\\\]" ],
+  moduleNameMapper: { "^.+\\.css$": "identity-obj-proxy" },
+  transform: { "^.+\\.js$": "babel-jest" },
+  transformIgnorePatterns: [ "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$" ],
+  setupFiles:["<rootDir>/mocks/browserMocks.js"]
 };

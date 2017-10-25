@@ -1,5 +1,5 @@
-import currentMovie from '../../src/reducers/currentMovie';
-import { RECEIVE_CURRENT_MOVIE } from '../../src/reducers/actions';
+import currentMovie from "../../src/reducers/currentMovie";
+import { RECEIVE_CURRENT_MOVIE } from "actions";
 
 describe("currentMovie reducer", () => {
   it("should return state for current movie", () => {
