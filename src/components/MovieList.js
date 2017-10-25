@@ -1,7 +1,7 @@
 import React from 'react';
 import { MovieCard } from './MovieCard';
-import * as css from '../styles/start-page.css';
-import * as cssList from '../styles/movie-list.css';
+import css from '../styles/start-page.css';
+import cssList from '../styles/movie-list.css';
 
 export function MovieList(props) {
   const movies = props.movies.map((movie, index) => {

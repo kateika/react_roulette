@@ -1,5 +1,5 @@
 import React from 'react';
-import * as css from '../styles/movie-card-description.css';
+import css from '../styles/movie-card-description.css';
 
 export function MovieCardDescription(props) {
   const { poster, title, vote_average, release_date, runtime, overview, budget, seasons, last_air_date } = props.currentMovie;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as css from '../styles/movie-card.css';
+import css from '../styles/movie-card.css';
 
 export function MovieCard(props) {
   const { poster, title, release_date, id, type } = props;

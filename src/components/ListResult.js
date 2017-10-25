@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { SearchContainer } from '../containers/SearchContainer';
 import { SortingContainer } from '../containers/SortingContainer';
 import { MovieList } from './MovieList';
-import * as cssList from '../styles/movie-list.css';
 
 export function ListResult(props) {
   const resultQuentity = props.movies.length;

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as css from '../styles/search.css';
+import css from '../styles/search.css';
 import { Field } from 'redux-form'
 
 export function Search(props) {
