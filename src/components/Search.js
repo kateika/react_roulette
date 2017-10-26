@@ -18,7 +18,7 @@ export function Search(props) {
     searchByDirector = <button type="button" className="btn btn-active">tv shows</button>
   } else {
     searchByDirector = <button type="button"
-      onClick={props.onDirectorClick}
+      onClick={props.onTVShowsClick}
       className="btn">tv shows</button>
   }
 
