@@ -8,13 +8,18 @@ configure({ adapter: new Adapter() });
 
 const onMoviesClick = jest.fn();
 const onTVShowsClick = jest.fn();
+const onSubmitSearch = jest.fn();
+const handleSubmit = fn => fn; /*fn is onSubmitSearch from props.onSubmitSearch in Search component*/
+
 const wrapper = shallow(<Search
   isMoviesActive={true}
   isTVShowActive={false}
   onMoviesClick={onMoviesClick}
   onTVShowsClick={onTVShowsClick}
-  handleSubmit={jest.fn()}
+  onSubmitSearch = {onSubmitSearch}
+  handleSubmit={handleSubmit}
 />);
+
 const moviesButton = wrapper.find(".choice button").first();
 const tvShowsButton = wrapper.find(".choice button").last();
 
@@ -38,5 +43,13 @@ describe("search by movies is active", () => {
       tvShowsButton.simulate("click");
       expect(onTVShowsClick.mock.calls.length).toBe(1);
     })
+  });
+});
+
+describe("submit search form", () => {
+  it("calls callback after submitting form", () => {
+    const searchForm = wrapper.find("form");
+    searchForm.simulate('submit');
+    expect(onSubmitSearch).toHaveBeenCalled();
   });
 });
