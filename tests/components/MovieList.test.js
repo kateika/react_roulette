@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount, render, configure } from "enzyme";
+import { shallow, configure } from "enzyme";
 import { MovieList } from "../../src/components/MovieList";
 import Adapter from 'enzyme-adapter-react-15';
 

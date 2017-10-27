@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount, render, configure } from "enzyme";
+import { shallow, configure } from "enzyme";
 import { Search } from "../../src/components/Search";
 import Adapter from 'enzyme-adapter-react-15';
 

@@ -9,7 +9,7 @@
     "build": "webpack",
     "prod": "cross-env NODE_ENV=production webpack",
     "test": "jest --watch",
-    "test update": "jest --watch --u"
+    "test update": "npm test && -- -u"
   },
   "keywords": [
     "roulette"
