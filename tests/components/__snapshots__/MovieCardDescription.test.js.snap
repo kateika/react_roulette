@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders layout without vote_average, release_date, runtime, budget, seasons, last_air_date  1`] = `
+exports[`Movie card description component renders layout without vote_average, release_date, runtime, budget, seasons, last_air_date  1`] = `
 <article
   className="container clearfix"
 >
@@ -26,7 +26,7 @@ exports[`renders layout without vote_average, release_date, runtime, budget, sea
 </article>
 `;
 
-exports[`renders valid layout when we receive all props 1`] = `
+exports[`Movie card description component renders valid layout when we receive all props 1`] = `
 <article
   className="container clearfix"
 >

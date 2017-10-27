@@ -16,24 +16,26 @@ const movie = {
   last_air_date: "2976-06-17"
 };
 
-test("renders valid layout when we receive all props", () => {
-  const tree = ReactTestRenderer.create(
-    <MovieCardDescription currentMovie={movie} />
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+describe("Movie card description component", () => {
+  test("renders valid layout when we receive all props", () => {
+    const tree = ReactTestRenderer.create(
+      <MovieCardDescription currentMovie={movie}/>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-const movieWithoutSomeProps = {
-  title: "test title",
-  poster: "/wajNlrVDkryVGTzDz9vZE6XKZnC.jpg",
-  id: 111,
-  type: "movie",
-  overview: "Some overview"
-};
+  const movieWithoutSomeProps = {
+    title: "test title",
+    poster: "/wajNlrVDkryVGTzDz9vZE6XKZnC.jpg",
+    id: 111,
+    type: "movie",
+    overview: "Some overview"
+  };
 
-test("renders layout without vote_average, release_date, runtime, budget, seasons, last_air_date ", () => {
-  const tree = ReactTestRenderer.create(
-    <MovieCardDescription currentMovie={movieWithoutSomeProps} />
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
+  test("renders layout without vote_average, release_date, runtime, budget, seasons, last_air_date ", () => {
+    const tree = ReactTestRenderer.create(
+      <MovieCardDescription currentMovie={movieWithoutSomeProps}/>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });
