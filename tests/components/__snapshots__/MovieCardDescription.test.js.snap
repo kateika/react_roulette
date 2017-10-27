@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders layout without vote_average, release_date, runtime, budget, seasons, last_air_date  1`] = `
+<article
+  className="container clearfix"
+>
+  <img
+    className="poster"
+    src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/wajNlrVDkryVGTzDz9vZE6XKZnC.jpg"
+  />
+  <div
+    className="description"
+  >
+    <h4
+      className="title"
+    >
+      test title
+    </h4>
+    <div
+      className="boldCaption"
+    />
+    <p>
+      Some overview
+    </p>
+  </div>
+</article>
+`;
+
+exports[`renders valid layout when we receive all props 1`] = `
+<article
+  className="container clearfix"
+>
+  <img
+    className="poster"
+    src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/wajNlrVDkryVGTzDz9vZE6XKZnC.jpg"
+  />
+  <div
+    className="description"
+  >
+    <h4
+      className="title"
+    >
+      test title
+      <div
+        className="ratingCircle"
+      >
+        <span
+          className="rating"
+        >
+          6.8
+        </span>
+      </div>
+    </h4>
+    <div
+      className="boldCaption"
+    >
+      <span
+        className="year"
+      >
+        1976-06-17
+      </span>
+      <span>
+        120
+         min
+      </span>
+    </div>
+    <p>
+      Some overview
+    </p>
+    <span
+      className="caption"
+    >
+      Budget is 
+      100
+      $
+    </span>
+    <span
+      className="caption"
+    >
+      Seasons: 
+      2
+    </span>
+    <span
+      className="caption"
+    >
+      Last air date: 
+      2976-06-17
+    </span>
+  </div>
+</article>
+`;
