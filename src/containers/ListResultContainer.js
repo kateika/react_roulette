@@ -22,4 +22,5 @@ const ListResultContainer = connect(
   mapStateToProps
 )(ListResult);
 
+export {mapStateToProps};
 export default ListResultContainer;
