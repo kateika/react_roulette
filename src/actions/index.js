@@ -2,7 +2,6 @@ let apiKey = localStorage.getItem('apiKey');
 /*
  * action types
  */
-export const REQUEST_MOVIES = 'REQUEST_MOVIES'; //for spinner in the future
 export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
 export const RECEIVE_CURRENT_MOVIE = 'RECEIVE_CURRENT_MOVIE';
 export const RECEIVE_RELATED_MOVIES = 'RECEIVE_RELATED_MOVIES';
@@ -35,10 +34,6 @@ export function setSearchBy(searchBy) {
   return { type: SET_SEARCH_BY, searchBy };
 }
 
-export function requestMovies() {
-  return { type: REQUEST_MOVIES }
-}
-
 export function receiveMovies(json) {
   return {
     type: RECEIVE_MOVIES,
@@ -63,7 +58,6 @@ export function receiveRelatedMovies(json) {
 export function fetchMovies(query) {
   return function (dispatch, getState) {
     let state = getState();
-    dispatch(requestMovies(query));//TODO is it necessary?
 
     let urlString = "";
     let urlParams = new URLSearchParams();
@@ -92,7 +86,6 @@ export function fetchMovies(query) {
 export function fetchTVShowInfo(id,type) {
   let currentMovie = {};
   return function (dispatch) {
-    dispatch(requestMovies(id));//TODO is it necessary?
 
     return fetch(`http://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
@@ -116,7 +109,6 @@ export function fetchTVShowInfo(id,type) {
 export function fetchMovieInfo(id,type) {
   let currentMovie = {};
   return function (dispatch) {
-    dispatch(requestMovies(id));//TODO is it necessary?
 
     return fetch(`http://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}`)
       .then(isResponseOk)
