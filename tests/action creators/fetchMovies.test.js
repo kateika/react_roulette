@@ -123,7 +123,6 @@ describe("Fetch movies", () => {
     mockFetchWith(fetchedMovies);
 
     await fetchMovies("office")(dispatch, getState);
-    console.log(dispatch.mock.calls);
     expect(dispatch.mock.calls[0][0].movies).toEqual(filteredFetchedMovies.results);
   });
 });
