@@ -1,14 +1,14 @@
 import React from "react";
 import { Provider } from 'react-redux';
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from 'react-router-dom';
-import configureStore from '../index';
+//import { StaticRouter } from 'react-router-dom';
+//import configureStore from '../index';
 import App from "../components/App";
+//import csshook from 'css-modules-require-hook/preset' // import hook before routes
+//import routes from '/shared/views/routes'
 
-function renderFullPage(html) {
-  //const application = document.createElement('div');
-  //document.body.appendChild(application);
 
+export function renderFullPage(html) {
   return `
     <!doctype html>
     <html>
@@ -27,25 +27,25 @@ function renderFullPage(html) {
     </html>
     `
 }
-
-export default function handleRender(request, response) {
-  const store = configureStore();
-  const context = {};
-  const app = (
-    <Provider store={store}>
-      <StaticRouter location={req.ul} context={context} >
-        <App />
-      </StaticRouter>
-    </Provider>
-  );
-
-  const html = renderToString(app);
-
-  if (context.url) {
-    return response.redirect(context.url);
-  }
-
-  const preloadedState = store.getState();
-
-  return response.send(renderFullPage(html, preloadedState));
-}
+//
+//export function handleRender(request, response) {
+//  const store = configureStore();
+//  const context = {};
+//  const app = (
+//    <Provider store={store}>
+//      <StaticRouter location={req.ul} context={context} >
+//        <App />
+//      </StaticRouter>
+//    </Provider>
+//  );
+//
+//  const html = renderToString(app);
+//
+//  if (context.url) {
+//    return response.redirect(context.url);
+//  }
+//
+//  const preloadedState = store.getState();
+//
+//  return response.send(renderFullPage(html, preloadedState));
+//}
