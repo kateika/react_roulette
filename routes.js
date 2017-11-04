@@ -2,13 +2,22 @@ import fallback from 'express-history-api-fallback';
 import express from 'express';
 const app = express();
 const root = `${__dirname}/build`;
-//import { renderToString } from "react-dom/server";
-//import { renderFullPage } from "./src/server";
+import React from 'react';
+import { renderToString } from "react-dom/server";
+import { renderFullPage } from "./src/server/index";
+import { MemoryRouter } from 'react-router-dom';
+import { MovieCard } from "./src/components/MovieCard";
 
 app.use(express.static('build'));
 app.get('/dev', (req, res) =>  {
+  let renderedComponent = renderToString(
+    <MemoryRouter>
+      <MovieCard />
+    </MemoryRouter>
+  );
+  let html = renderFullPage(renderedComponent, {});
   //res.send(renderToString(renderFullPage));
-  res.send('hello');
+  res.send(html);
 });
 
 app.use(fallback('index.html', { root }));

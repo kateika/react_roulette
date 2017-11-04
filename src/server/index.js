@@ -1,19 +1,20 @@
 import React from "react";
 import { Provider } from 'react-redux';
 import { renderToString } from "react-dom/server";
-//import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 //import configureStore from '../index';
-import App from "../components/App";
-//import csshook from 'css-modules-require-hook/preset' // import hook before routes
-//import routes from '/shared/views/routes'
+import csshook from 'css-modules-require-hook/preset'
+
+//import App from "../components/App";
 
 
-export function renderFullPage(html) {
+export function renderFullPage(html, preloadedState) {
   return `
     <!doctype html>
     <html>
       <head>
         <title>Redux Universal Example</title>
+        <link rel="stylesheet" href="/main.css" />
       </head>
       <body>
         <div id="root">${html}</div>
