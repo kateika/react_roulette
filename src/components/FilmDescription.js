@@ -5,6 +5,10 @@ import { MovieCardDescription } from './MovieCardDescription';
 
 
 export class FilmDescription extends React.Component {
+  //static fetchData(store) {
+  //  return store.dispatch(props.loadMovieInfo(props.match.params.filmId, props.match.params.type));
+  //}
+
   componentWillMount() {
     this.props.loadMovieInfo(this.props.match.params.filmId, this.props.match.params.type);
   }

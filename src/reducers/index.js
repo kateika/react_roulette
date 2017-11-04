@@ -7,12 +7,12 @@ import currentMovie from './currentMovie';
 import relatedMovies from './relatedMovies';
 
 let rootReducer = combineReducers({
-    searchBy,
-    sortBy,
-    movies,
-    currentMovie,
-    relatedMovies,
-    form: formReducer
-  });
+  searchBy,
+  sortBy,
+  movies,
+  currentMovie,
+  relatedMovies,
+  form: formReducer
+});
 
-  export default rootReducer;
+export default rootReducer;

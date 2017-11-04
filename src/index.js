@@ -10,7 +10,7 @@ import App from './components/App';
 import rootReducer from './reducers/index'
 
 
-let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
+let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__, applyMiddleware(thunkMiddleware));
 //let store = configureStore(window.__PRELOADED_STATE__);
 //
 //delete window.__PRELOADED_STATE__;

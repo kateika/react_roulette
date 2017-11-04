@@ -1,4 +1,5 @@
 let apiKey = process.env.API_KEY;
+import fetch from 'isomorphic-fetch';
 
 /*
  * action types
