@@ -1,3 +1,4 @@
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -54,6 +55,7 @@ const config = {
     },
 
     plugins: [
+        new Dotenv({}),
         new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             title: 'Movie roulette'

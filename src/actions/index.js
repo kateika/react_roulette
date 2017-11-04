@@ -1,4 +1,5 @@
-let apiKey = localStorage.getItem('apiKey');
+let apiKey = process.env.API_KEY;
+console.log(apiKey);
 /*
  * action types
  */

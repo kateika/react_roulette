@@ -20,6 +20,8 @@
   "dependencies": {
     "cross-env": "^5.0.5",
     "css-modules-require-hook": "^4.2.2",
+    "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "express": "^4.15.4",
     "express-history-api-fallback": "^2.2.1",
     "react": "^15.6.1",
