@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import {} from 'dotenv/config';
 import fallback from 'express-history-api-fallback';
 import express from 'express';
 const app = express();
