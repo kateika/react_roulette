@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MovieList } from './MovieList';
 import { MovieCardDescription } from './MovieCardDescription';
-
+import { fetchInfo } from '../containers/FilmDescriptionContainer';
 
 export class FilmDescription extends React.Component {
-  //static fetchData(store) {
-  //  return store.dispatch(props.loadMovieInfo(props.match.params.filmId, props.match.params.type));
-  //}
+  static fetchData(store, match) {
+   return store.dispatch(fetchInfo(match.params.filmId, match.params.type));
+  }
 
   componentWillMount() {
     this.props.loadMovieInfo(this.props.match.params.filmId, this.props.match.params.type);

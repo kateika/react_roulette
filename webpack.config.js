@@ -14,7 +14,7 @@ const config = {
     ],
 
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle-[hash].js',
         path:  path.resolve(__dirname, 'build'),
         publicPath: '/'
     },
@@ -56,9 +56,11 @@ const config = {
 
     plugins: [
         new Dotenv({}),
-        new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name]-[contenthash].css"),
         new HtmlWebpackPlugin({
-            title: 'Movie roulette'
+            title: 'Movie roulette',
+            filename: 'index.html',
+            template: 'templates/index.html'
         })
     ]
 };
@@ -67,7 +69,7 @@ if (process.env.NODE_ENV === 'production') {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
 } else {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.devtool = 'eval';
+  config.devtool = 'cheap-module-eval-source-map';
   config.devServer = {
     contentBase: path.resolve(__dirname, 'data'),
     hot: true,

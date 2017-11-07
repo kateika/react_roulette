@@ -1,4 +1,5 @@
 import {} from 'dotenv/config';
+import fs from 'fs';
 import fallback from 'express-history-api-fallback';
 import express from 'express';
 const app = express();
@@ -26,15 +27,20 @@ const router = express.Router();
 app.use(express.static('build'));
 
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-app.get('/movie/603', (req, res) =>  {
-  const branch = matchRoutes(routes, req.url);
+app.get('*', (req, res) =>  {
   console.log(req.url);
+
+  const branch = matchRoutes(routes, req.url);
   //console.log("branch", branch);
-  const promises = branch.map(({route}) => {
+  const promises = branch.map(({route, match}) => {
+    //console.log(match);
+    // return route.loadData
+    // ? route.loadData(match)
+    // : Promise.resolve(null)
     //console.log("route", route);
     let fetchData = route.component.fetchData;
     //console.log("fetchdata", fetchData);
-    return fetchData instanceof Function ? fetchData(store) : Promise.resolve(null)
+    return fetchData instanceof Function ? fetchData(store, match) : Promise.resolve(null)
   });
   return Promise.all(promises).then((data) => {
     let context = {};
@@ -45,10 +51,21 @@ app.get('/movie/603', (req, res) =>  {
         </StaticRouter>
       </Provider>
     );
-    if(context.status === 404) {
-      res.status(404);
-    }
-    res.render('index', {title: 'Express', data: store.getState(), content });
+    // console.log("contex", context.url);
+    // if(context.status === 404) {
+    //   console.log("shtutkphtsi");
+    //   res.status(404);
+    // }
+
+    fs.readFile('./build/index.html', 'utf8', (err, htmlStr) => {
+      if (err) throw err;
+
+      // let serverHtml = renderFullPage(content, {});
+      let html = htmlStr.replace("<div id='root'></div>", `<div id="root">${content}</div>`);
+      // console.log("serverHtml",serverHtml);
+      console.log("html",html);
+      res.send(html);
+    });
   });
   //
   //let context = {};
