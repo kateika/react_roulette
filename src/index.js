@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import thunkMiddleware from 'redux-thunk';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import { renderRoutes } from 'react-router-config';
@@ -13,24 +13,16 @@ import routes from "./components/App";
 import rootReducer from './reducers/index'
 
 
-let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunkMiddleware));
-//let store = configureStore(window.__PRELOADED_STATE__);
-//
-//delete window.__PRELOADED_STATE__;
-//
-//export default function configureStore(initialState) {
-//  let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), initialState, applyMiddleware(thunkMiddleware));
-//  return store;
-//}
-//
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, window.__PRELOADED_STATE__, composeEnhancers(
+  applyMiddleware(thunkMiddleware)
+));
 
-// const application = document.createElement('div');
-// document.body.appendChild(application);
+delete window.__PRELOADED_STATE__;
 
 const application = document.getElementById('root');
 
 const render = (store) => {
-  Perf.start();
   ReactDom.render(
     <AppContainer>
       <Provider store={store}>
@@ -40,9 +32,7 @@ const render = (store) => {
       </Provider>
     </AppContainer>,
     application
-  )
-  Perf.stop();
-  Perf.printOperations(Perf.getLastMeasurements());
+  );
 };
 
 render(store);

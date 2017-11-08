@@ -5,7 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 //import configureStore from '../index';
 import csshook from 'css-modules-require-hook/preset'
 
-//import App from "../components/App";
+//TODO delete this file
 
 
 export function renderFullPage(html, preloadedState) {

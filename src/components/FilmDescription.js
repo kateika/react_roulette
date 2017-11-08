@@ -9,8 +9,10 @@ export class FilmDescription extends React.Component {
    return store.dispatch(fetchInfo(match.params.filmId, match.params.type));
   }
 
-  componentWillMount() {
-    this.props.loadMovieInfo(this.props.match.params.filmId, this.props.match.params.type);
+  componentDidMount(nextProps) {
+    if(Object.keys(this.props.currentMovie).length === 0) {
+      this.props.loadMovieInfo(this.props.match.params.filmId, this.props.match.params.type);
+    }
   }
 
   componentWillReceiveProps(nextProps) {

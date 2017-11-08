@@ -12,37 +12,30 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 import { renderToString } from "react-dom/server";
-import { renderFullPage } from "./src/server/index";
 
 import { MemoryRouter } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
-import routes from "./src/components/App";
+import csshook from 'css-modules-require-hook/preset';
+import routes from './src/components/App';
 import rootReducer from './src/reducers/index';
 
 const router = express.Router();
 
 
-app.use(express.static('build'));
+app.use(express.static('build', {index: false}));
 
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
 app.get('*', (req, res) =>  {
-  console.log(req.url);
+  let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
   const branch = matchRoutes(routes, req.url);
-  //console.log("branch", branch);
   const promises = branch.map(({route, match}) => {
-    //console.log(match);
-    // return route.loadData
-    // ? route.loadData(match)
-    // : Promise.resolve(null)
-    //console.log("route", route);
     let fetchData = route.component.fetchData;
-    //console.log("fetchdata", fetchData);
     return fetchData instanceof Function ? fetchData(store, match) : Promise.resolve(null)
   });
-  return Promise.all(promises).then((data) => {
+  return Promise.all(promises).then(() => {
     let context = {};
     const content = renderToString(
       <Provider store={store}>
@@ -51,33 +44,20 @@ app.get('*', (req, res) =>  {
         </StaticRouter>
       </Provider>
     );
-    // console.log("contex", context.url);
-    // if(context.status === 404) {
-    //   console.log("shtutkphtsi");
-    //   res.status(404);
-    // }
+
+     if(context.status === 404) {
+       res.status(404);
+     }
 
     fs.readFile('./build/index.html', 'utf8', (err, htmlStr) => {
       if (err) throw err;
 
-      // let serverHtml = renderFullPage(content, {});
-      let html = htmlStr.replace("<div id='root'></div>", `<div id="root">${content}</div>`);
-      // console.log("serverHtml",serverHtml);
-      console.log("html",html);
+      const preloadedState = store.getState();
+      let html = htmlStr.replace("<div id='root'></div>", `<div id="root">${content}</div><script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}</script>`);
+
       res.send(html);
     });
   });
-  //
-  //let context = {};
-  //let renderedComponent = renderToString(
-  //  <Provider store={store}>
-  //    <StaticRouter location={req.url} context={context}>
-  //      <App />
-  //    </StaticRouter>
-  //  </Provider>
-  //);
-  //let html = renderFullPage(renderedComponent, {});
-  //res.send(html);
 });
 
 app.use(fallback('index.html', { root }));
