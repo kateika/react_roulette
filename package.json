@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run prod && babel-node --presets es2015 routes.js",
-    "server": "nodemon --exec babel-node --presets es2015 routes.js",
+    "start": "npm run prod && babel-node --presets es2015 server.js",
+    "server": "nodemon --exec babel-node --presets es2015 server.js",
     "dev": "webpack-dev-server --open",
     "build": "webpack",
     "prod": "cross-env NODE_ENV=production webpack",

@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { renderRoutes } from 'react-router-config';
 
-import routes from "./components/App";
+import routes from "./routes";
 import rootReducer from './reducers/index'
 
 
@@ -38,5 +38,5 @@ const render = (store) => {
 render(store);
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => render(store));
+  module.hot.accept('./routes.js', () => render(store));
 }

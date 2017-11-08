@@ -18,7 +18,7 @@ import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
 import csshook from 'css-modules-require-hook/preset';
-import routes from './src/components/App';
+import routes from './src/routes';
 import rootReducer from './src/reducers/index';
 
 const router = express.Router();
