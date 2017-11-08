@@ -5,3 +5,4 @@ production-build
 npm-debug.log
 .idea/
 .env
+.env.production

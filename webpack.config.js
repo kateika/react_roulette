@@ -57,7 +57,6 @@ const config = {
     },
 
     plugins: [
-        new Dotenv({}),
         new CleanWebpackPlugin(['build']),
         new ExtractTextPlugin("[name]-[contenthash].css"),
         new HtmlWebpackPlugin({
@@ -70,8 +69,10 @@ const config = {
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+  config.plugins.push(new Dotenv({path: "./.env.production"}));
 } else {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
+  config.plugins.push(new Dotenv({}));
   config.devtool = 'cheap-module-eval-source-map';
   config.devServer = {
     contentBase: path.resolve(__dirname, 'data'),
