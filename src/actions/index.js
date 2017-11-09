@@ -63,8 +63,6 @@ export function fetchMovies(query) {
 
     let urlString = "";
 
-    query.toLowerCase();
-
     if(state.searchBy === SearchBy.SEARCH_BY_MOVIES) {
       urlString = "movie"
     } else {
