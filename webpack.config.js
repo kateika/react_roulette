@@ -3,6 +3,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 const config = {
 
@@ -56,6 +58,7 @@ const config = {
 
     plugins: [
         new Dotenv({}),
+        new CleanWebpackPlugin(['build']),
         new ExtractTextPlugin("[name]-[contenthash].css"),
         new HtmlWebpackPlugin({
             title: 'Movie roulette',
