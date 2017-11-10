@@ -12,6 +12,7 @@ export class ListResult extends React.Component {
   }
 
   componentDidMount() {
+    if(this.props.match.params.searchQuery === undefined) return;
     this.props.onSubmitSearch(this.props.match.params.searchQuery);
     this.props.updateSearchValue(this.props.match.params.searchQuery);
   }
