@@ -45,7 +45,6 @@ describe("Fetch movies", () => {
       }]
     };
 
-    console.log(JSON.stringify(fetchedMovies));
     fetch.mockResponseOnce(JSON.stringify(fetchedMovies));
 
     await fetchMovies("office")(dispatch, getState);
