@@ -10,7 +10,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
 import routes from "./routes";
-import rootReducer from './reducers/index'
+import rootReducer from './reducers/index';
+import ScrollToTop from './components/ScrollToTop';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -27,7 +28,9 @@ const render = (store) => {
     <AppContainer>
       <Provider store={store}>
         <BrowserRouter>
-          {renderRoutes(routes)}
+          <ScrollToTop>
+            {renderRoutes(routes)}
+          </ScrollToTop>
         </BrowserRouter>
       </Provider>
     </AppContainer>,
