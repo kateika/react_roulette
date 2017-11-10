@@ -5,5 +5,5 @@ module.exports = {
   moduleNameMapper: { "^.+\\.css$": "identity-obj-proxy" },
   transform: { "^.+\\.js$": "babel-jest" },
   transformIgnorePatterns: [ "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$" ],
-  setupFiles:["<rootDir>/mocks/browserMocks.js"]
+  setupFiles:["<rootDir>/mocks/fetchMock.js"]
 };

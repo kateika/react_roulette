@@ -2,18 +2,6 @@ import React from "react";
 import { fetchMovies } from "../../src/actions/index";
 
 describe("Fetch movies", () => {
-  global.URLSearchParams = function URLSearchParams() { this.append = jest.fn() };
-
-  function mockFetchWith(data) {
-    global.fetch = () => {
-      return Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(data)
-      })
-    };
-  }
-
-
   it("fetches movies", async () => {
     const getState = jest.fn(() => { return {searchBy: "SEARCH_BY_MOVIES"} });
     const dispatch = jest.fn();
@@ -57,9 +45,9 @@ describe("Fetch movies", () => {
       }]
     };
 
-    mockFetchWith(fetchedMovies);
+    console.log(JSON.stringify(fetchedMovies));
+    fetch.mockResponseOnce(JSON.stringify(fetchedMovies));
 
-    global.URLSearchParams = function URLSearchParams() { this.append = jest.fn() };
     await fetchMovies("office")(dispatch, getState);
     expect(dispatch.mock.calls[0][0].movies).toEqual(filteredFetchedMovies.results);
   });
@@ -120,7 +108,7 @@ describe("Fetch movies", () => {
       }]
     };
 
-    mockFetchWith(fetchedMovies);
+    fetch.mockResponseOnce(JSON.stringify(fetchedMovies));
 
     await fetchMovies("office")(dispatch, getState);
     expect(dispatch.mock.calls[0][0].movies).toEqual(filteredFetchedMovies.results);

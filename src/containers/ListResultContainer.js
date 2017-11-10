@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { ListResult } from '../components/ListResult';
 import { SortBy } from '../actions/index';
 import { fetchMovies } from '../actions/index';
-import { reduxForm, change } from 'redux-form';
+import { change } from 'redux-form';
 
 const mapStateToProps = (state) => {
   const sortedMovies = state.movies.slice();

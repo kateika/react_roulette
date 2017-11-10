@@ -6,9 +6,20 @@ import Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
 describe("Movie list bar of List result component", () => {
+  const props = {
+    match: {
+      params: {
+        searchQuery: "query"
+
+      }
+    },
+    onSubmitSearch: jest.fn(),
+    updateSearchValue: jest.fn()
+  };
+
   describe("single result", () => {
     it("render single version", () => {
-      const wrapper = shallow(<ListResult movies={["not zero length"]} />);
+      const wrapper = shallow(<ListResult movies={["not zero length"]} {...props} />);
       expect(wrapper.contains(<span>1 result was found</span>)).toEqual(true);
     });
 
@@ -16,7 +27,7 @@ describe("Movie list bar of List result component", () => {
 
   describe("plural results", () => {
     it("render plural version", () => {
-      const wrapper = shallow(<ListResult movies={["1", "2"]} />);
+      const wrapper = shallow(<ListResult movies={["1", "2"]} {...props} />);
       expect(wrapper.contains(<span>2 results was found</span>)).toEqual(true);
     });
   });
