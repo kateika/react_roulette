@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { FilmDescription } from './../components/FilmDescription';
-import { fetchMovieInfo, fetchTVShowInfo } from '../actions/index';
+import { fetchInfo } from '../actions/index';
 
 const mapStateToProps = (state) => {
   return {
@@ -22,12 +22,5 @@ const FilmDescriptionContainer = connect(
   mapDispatchToProps
 )(FilmDescription);
 
-export function fetchInfo(id,type) {
-  if(type == "movie") {
-    return fetchMovieInfo(id, type);
-  } else {
-    return fetchTVShowInfo(id, type);
-  }
-};
 
 export default FilmDescriptionContainer;

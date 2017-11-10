@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MovieList } from './MovieList';
 import { MovieCardDescription } from './MovieCardDescription';
-import { fetchInfo } from '../containers/FilmDescriptionContainer';
+import { fetchInfo } from '../actions/index';
 
 export class FilmDescription extends React.Component {
   static fetchData(store, match) {

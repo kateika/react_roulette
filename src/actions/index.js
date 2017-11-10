@@ -57,6 +57,14 @@ export function receiveRelatedMovies(json) {
   }
 }
 
+export function fetchInfo(id,type) {
+  if(type == "movie") {
+    return fetchMovieInfo(id, type);
+  } else {
+    return fetchTVShowInfo(id, type);
+  }
+};
+
 export function fetchMovies(query) {
   return function (dispatch, getState) {
     let state = getState();
