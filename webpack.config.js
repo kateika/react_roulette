@@ -1,7 +1,10 @@
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 const config = {
 
@@ -9,11 +12,11 @@ const config = {
 
     entry: [
         'react-hot-loader/patch',
-        './reducers/index.js'
+        './index.js'
     ],
 
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle-[hash].js',
         path:  path.resolve(__dirname, 'build'),
         publicPath: '/'
     },
@@ -54,19 +57,25 @@ const config = {
     },
 
     plugins: [
-        new ExtractTextPlugin("[name].css"),
+        new CleanWebpackPlugin(['build']),
+        new ExtractTextPlugin("[name]-[contenthash].css"),
         new HtmlWebpackPlugin({
-            title: 'Movie roulette'
+            title: 'Movie roulette',
+            filename: 'index.html',
+            template: 'templates/index.html'
         })
     ]
 };
 
 if (process.env.NODE_ENV === 'production') {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+  config.plugins.push(new Dotenv({path: "./.env.production"}));
 } else {
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
-  config.devtool = 'eval';
+  config.plugins.push(new Dotenv({}));
+  config.devtool = 'cheap-module-eval-source-map';
   config.devServer = {
+    contentBase: path.resolve(__dirname, 'data'),
     hot: true,
     port: 3000,
     historyApiFallback: true

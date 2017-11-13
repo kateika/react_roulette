@@ -1,5 +1,10 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
 :global(.page-wrapper) {
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 85px);
 }
 
 :global(.header) {
@@ -20,9 +25,30 @@
 
 :global(.logo) {
   display: inline-block;
-  font-size: 18px;
+  font-size: 14px;
   color: mintcream;
   margin-left: 30px;
+  clear: both;
+}
+
+:global(.api-logo) {
+  position: relative;
+  float: right;
+  text-align: right;
+  padding-right: 110px;
+  width: 70%;
+}
+
+:global(.api-logo:before) {
+  content: "";
+  background-image: url(https://www.themoviedb.org/assets/static_cache/bb45549239e25f1770d5f76727bcd7c0/images/v4/logos/408x161-powered-by-rectangle-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 40px;
+  width: 100px;
+  position: absolute;
+  top: -10px;
+  right: 0;
 }
 
 :global(.footer) {
@@ -39,7 +65,8 @@ a {
 }
 
 :global(.btn) {
-  background-color: #gray;
+  color: mintcream;
+  background-color: gray;
   padding: 5px 10px;
   border-radius: 3px;
   text-transform: uppercase;
@@ -78,6 +105,13 @@ input[type=submit] {
   cursor: pointer;
 }
 
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  font-size: 14px;
+}
+
 :global(.clearfix:before),
 :global(.clearfix:after) {
   content: "";
@@ -99,6 +133,10 @@ input[type=submit] {
   display: flex;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
+}
+
+:global(.relative) {
+  position: relative;
 }
 
 h4 {

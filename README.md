@@ -13,3 +13,7 @@
 4. Run app in production
 
     `npm run start`
+    
+4. Run unit tests
+
+    `npm run test`
