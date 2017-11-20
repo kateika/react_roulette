@@ -23,17 +23,29 @@
   display: inline-block;
   font-size: 30px;
   max-width: 400px;
+  position: relative;
 }
 
 .rating {
   display: inline-block;
-  vertical-align: middle;
-  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  width: 25px;
+  position: absolute;
+  top: 13px;
+  right: 8px;
   color: lightgreen;
+}
+
+.rating-circle {
+  position: absolute;
+  top: -3px;
+  right: -55px;
+  display: block;
+  width: 41px;
+  height: 41px;
   border: 1px solid lightgreen;
   border-radius: 50%;
-  margin-left: 15px;
-  margin-bottom: 7px;
 }
 
 .caption {
@@ -42,14 +54,8 @@
 
 .bold-caption {
   font-weight: bold;
-  margin-top: 15px;
 }
 
 .year {
   margin-right: 10px;
-}
-
-small {
-  display: block;
-  margin-bottom: 10px;
 }

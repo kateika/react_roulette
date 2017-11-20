@@ -1,11 +1,11 @@
 .results-bar {
   background-color: gainsboro;
+  min-height: 38px;
 }
 
 .results-container {
   padding: 10px;
   box-sizing: border-box;
-  min-height: 38px;
 }
 
 .sorting {
